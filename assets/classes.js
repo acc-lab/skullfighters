@@ -164,8 +164,6 @@ class Arrow{
 		this.vy+=this.ay;
 	}
 	drawSelf(debug){
-		console.log("I am here")
-		
 		//get direction to aim
 		let direction=Math.atan2(this.vy,this.vx)+2*Math.PI;
 
