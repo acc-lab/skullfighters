@@ -115,7 +115,6 @@ function loop(){
 		coDrawImage('wave_text', -1, 268, 7, 1, 0, 0, 2.2);
 		printNumber(wave, 306, 8, 0.8, 0);
 
-
 		drawProgressBar(timing, max_timing);
 
 		//if the castle's health gone too low, the game ends
@@ -132,6 +131,12 @@ function loop(){
 			}
 
 			if(!_is_enemy_flag){
+				for(let i=0; i<GameObjects.skulls.length; i++){
+					army += GameObjects.skulls[i].value;
+
+					GameObjects.skulls[i].dying = true;
+				}
+
 				wave+=1;
 
 				max_timing=maxTiming(wave);

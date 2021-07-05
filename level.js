@@ -204,10 +204,6 @@ function levelFunction(w,t){
 			p=200;
 			
 			_army=400;
-
-			for(var x=70; x<830; x+=5){
-				new_bullet(x,0,2,0,5,0,1,1000);
-			}
 		}
 		
 		generation_speed=1.2;
@@ -269,10 +265,6 @@ function levelFunction(w,t){
 	else if(w==5){
 		if (t==1){
 			_army=400;
-
-			for(var x=70; x<830; x+=5){
-				new_bullet(x,0,2,0,5,0,1,1000);
-			}
 		}
 		
 		generation_speed=1.3;
