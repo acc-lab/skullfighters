@@ -60,9 +60,9 @@ function levelFunction(w,t){
 		}if(t==2750){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 70);
 		}if(t==2830){
-			new_skull(x=900, y=400, func_=skeleton_walking, 2, 300);
+			new_skull(x=900, y=400, func_=skeleton_walking, 2, 200);
 		}if(t==2900){
-			new_skull(x=900, y=400, func_=skeleton_bow_walking_func(0,
+			new_skull(x=900, y=400, func_=skeleton_bow_walking_func(43,
 				function(lead_l, lead_r){
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -2, 0.2*this.dir, 0.2, 50);
 				}
@@ -71,8 +71,6 @@ function levelFunction(w,t){
 	}
 	else if(w==2){
 		if(t==1){
-			_army=200;
-
 			generation_speed=0.48;
 		}
 		if(t==50){
@@ -95,7 +93,7 @@ function levelFunction(w,t){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 130);
 		}if(t==910){
 			new_skull(x=900, y=400, func_=skeleton_bow_walking_func(25), 2, 130);
-			generation_speed=0.63;
+			generation_speed=0.58;
 
 		}if(t==1110){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 100);
@@ -118,10 +116,6 @@ function levelFunction(w,t){
 		}
 	}
 	else if(w==3){
-		if(t==1){
-			_army=300;
-		}
-
 		if(t==180){
 			new_skull(x=900, y=400, func_=skeleton_bow_walking_func(15, 
 				function(lead_l, lead_r){
@@ -130,7 +124,7 @@ function levelFunction(w,t){
 				}
 			), 2, 150);
 			
-			generation_speed=0.73;
+			generation_speed=0.63;
 
 		}if(t==300){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 150);
@@ -180,7 +174,7 @@ function levelFunction(w,t){
 		}if(t==900){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 150);
 			
-			generation_speed=0.83;
+			generation_speed=0.68;
 
 		}if(t==940){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 150);
@@ -203,10 +197,10 @@ function levelFunction(w,t){
 		if (t==1){
 			p=200;
 			
-			_army=400;
+			_army=200;
 		}
 		
-		generation_speed=1.2;
+		generation_speed=0.73;
 		
 		
 		if ((t+50)%Math.floor(p/2.7)==0 && t<2500){
@@ -263,11 +257,7 @@ function levelFunction(w,t){
 		}
 	}
 	else if(w==5){
-		if (t==1){
-			_army=400;
-		}
-		
-		generation_speed=1.3;
+		generation_speed=0.78;
 		
 		if (t>=100 && t<=1000 && t%50==0){
 			new_skull(x=900,y=400,func_=skeleton_walking_func(walking_cycle_time = 2),2,250);
