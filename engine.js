@@ -33,7 +33,7 @@ var wave=1;
 var max_timing=maxTiming(wave);
 
 //cards hotbar
-spots_ID = ["chopper",];
+spots_ID = ["chopper", "archer", "defender", "police"];
 
 //ID to Spot() object
 spots = toSpots(spots_ID);
