@@ -252,7 +252,7 @@ class Arrow{
 
 class Skull{
 	constructor(x, y, func, team, health, value){
-		this.x=x+randomize(0,10);
+		this.x=x;
 		this.y=y;
 		this.cstFunc=func;
 		this.team=team;
