@@ -162,7 +162,7 @@ var Library = new LibraryCls({
 	}),
 });
 
-spots_ID = ["archer", "archer", "archer", "archer", "archer", "archer",];
+spots_ID = ["chopper", "archer", "defender", "police"];
 
 spots = []
 
