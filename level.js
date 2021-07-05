@@ -234,7 +234,6 @@ function levelFunction(w,t){
 					function(lead_l, lead_r){
 						let damage=7;
 						
-						new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 						new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -2, 0.2*this.dir, 0.2, damage);
 						new_arrow(this.x+16*this.dir, this.y-22, this.team, 11*this.dir, -2.2, 0.22*this.dir, 0.22, damage);
 						new_arrow(this.x+16*this.dir, this.y-22, this.team, 12*this.dir, -2.4, 0.24*this.dir, 0.24, damage);
@@ -243,8 +242,9 @@ function levelFunction(w,t){
 						new_arrow(this.x+16*this.dir, this.y-22, this.team, 15*this.dir, -3, 0.3*this.dir, 0.3, damage);
 						new_arrow(this.x+16*this.dir, this.y-22, this.team, 16*this.dir, -3.2, 0.32*this.dir, 0.32, damage);
 						new_arrow(this.x+16*this.dir, this.y-22, this.team, 17*this.dir, -3.4, 0.34*this.dir, 0.34, damage);
-						new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
+						new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 						new_arrow(this.x+16*this.dir, this.y-22, this.team, 19*this.dir, -3.8, 0.38*this.dir, 0.38, damage);
+						new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
 						new_arrow(this.x+16*this.dir, this.y-22, this.team, 21*this.dir, -4.2, 0.42*this.dir, 0.42, damage);
 					}
 				),2,800);
@@ -294,7 +294,6 @@ function levelFunction(w,t){
 					let damage=5;
 					
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -2, 0.2*this.dir, 0.2, damage);
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 11*this.dir, -2.2, 0.22*this.dir, 0.22, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 12*this.dir, -2.4, 0.24*this.dir, 0.24, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 13*this.dir, -2.6, 0.26*this.dir, 0.26, damage);
@@ -302,8 +301,9 @@ function levelFunction(w,t){
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 15*this.dir, -3, 0.3*this.dir, 0.3, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 16*this.dir, -3.2, 0.32*this.dir, 0.32, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 17*this.dir, -3.4, 0.34*this.dir, 0.34, damage);
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 19*this.dir, -3.8, 0.38*this.dir, 0.38, damage);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 21*this.dir, -4.2, 0.42*this.dir, 0.42, damage);
 				}
 			),2,800);
@@ -313,7 +313,6 @@ function levelFunction(w,t){
 				function(lead_l, lead_r){
 					let damage=5;
 					
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -2, 0.2*this.dir, 0.2, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 11*this.dir, -2.2, 0.22*this.dir, 0.22, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 12*this.dir, -2.4, 0.24*this.dir, 0.24, damage);
@@ -322,8 +321,9 @@ function levelFunction(w,t){
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 15*this.dir, -3, 0.3*this.dir, 0.3, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 16*this.dir, -3.2, 0.32*this.dir, 0.32, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 17*this.dir, -3.4, 0.34*this.dir, 0.34, damage);
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 19*this.dir, -3.8, 0.38*this.dir, 0.38, damage);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 21*this.dir, -4.2, 0.42*this.dir, 0.42, damage);
 				}
 			),2,800);
@@ -333,7 +333,6 @@ function levelFunction(w,t){
 				function(lead_l, lead_r){
 					let damage=12;
 					
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -2, 0.2*this.dir, 0.2, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 11*this.dir, -2.2, 0.22*this.dir, 0.22, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 12*this.dir, -2.4, 0.24*this.dir, 0.24, damage);
@@ -342,8 +341,9 @@ function levelFunction(w,t){
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 15*this.dir, -3, 0.3*this.dir, 0.3, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 16*this.dir, -3.2, 0.32*this.dir, 0.32, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 17*this.dir, -3.4, 0.34*this.dir, 0.34, damage);
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 19*this.dir, -3.8, 0.38*this.dir, 0.38, damage);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 21*this.dir, -4.2, 0.42*this.dir, 0.42, damage);
 				}
 			),2,1200);
@@ -353,7 +353,6 @@ function levelFunction(w,t){
 				function(lead_l, lead_r){
 					let damage=24;
 					
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -2, 0.2*this.dir, 0.2, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 11*this.dir, -2.2, 0.22*this.dir, 0.22, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 12*this.dir, -2.4, 0.24*this.dir, 0.24, damage);
@@ -362,8 +361,9 @@ function levelFunction(w,t){
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 15*this.dir, -3, 0.3*this.dir, 0.3, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 16*this.dir, -3.2, 0.32*this.dir, 0.32, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 17*this.dir, -3.4, 0.34*this.dir, 0.34, damage);
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 18*this.dir, -3.6, 0.36*this.dir, 0.36, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 19*this.dir, -3.8, 0.38*this.dir, 0.38, damage);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 20*this.dir, -4, 0.4*this.dir, 0.4, damage);
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 21*this.dir, -4.2, 0.42*this.dir, 0.42, damage);
 				}
 			),2,5000);

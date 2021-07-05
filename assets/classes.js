@@ -6,7 +6,7 @@ class Chop{
 		this.damage=damage;
 	}
 	get rect(){
-		return [this.x-3.5,this.y-3.5,7,7];
+		return [this.x-1.5,this.y-1.5,3,3];
 	}
 	checkIfTouched(skulls){
 		for(j=0;j<skulls.length;j++){
