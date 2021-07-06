@@ -23,7 +23,7 @@ function lastEnemyTiming(w){
 		case 3: return 1000;
 		case 4: return 2450;
 		case 5: return 3000;
-		default: return -999999999;
+		default: return 999999999;
 	}
 }
 
