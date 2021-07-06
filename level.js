@@ -11,7 +11,7 @@ function maxTiming(w){
 		case 2: return 2400;
 		case 3: return 1400;
 		case 4: return 3000;
-		case 5: return 3700;
+		case 5: return 4000;
 		default: return 999999999;
 	}
 }
@@ -268,7 +268,7 @@ function levelFunction(w,t){
 		}
 	}
 	else if(w==5){
-		generation_speed=0.78;
+		generation_speed=0.83;
 		
 		if (t>=100 && t<=1000 && t%50==0){
 			new_skull(x=900,y=400,func_=skeleton_walking_func(walking_cycle_time = 2),2,250);
@@ -300,6 +300,8 @@ function levelFunction(w,t){
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 21*this.dir, -4.2, 0.42*this.dir, 0.42, damage);
 				}
 			),2,800);
+
+			generation_speed=0.93;
 		}
 		if(t==2300){
 			new_skull(x=900, y=400, func_=skeleton_bow_walking_func(0, 
