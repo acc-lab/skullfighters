@@ -5,7 +5,7 @@ class LibraryCls{
 }
 
 var Library = new LibraryCls({
-	"chopper": new SpawningCard("icon_of_chop", 40, 40, function(){
+	"chopper": new SpawningCard("icon_of_chop", 40, 30, function(){
 		new_skull(x=0, y=400, func_=skeleton_walking, 1, 80, 40);
 	}),
 
