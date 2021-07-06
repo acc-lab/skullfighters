@@ -7,12 +7,23 @@ var generation_speed=0.28;
 
 function maxTiming(w){
 	switch(w){
-		case 1: return 3200;
-		case 2: return 2200;
-		case 3: return 1200;
-		case 4: return 2800;
-		case 5: return 3500;
-		default: return -1;
+		case 1: return 3400;
+		case 2: return 2400;
+		case 3: return 1400;
+		case 4: return 3000;
+		case 5: return 3700;
+		default: return 999999999;
+	}
+}
+
+function lastEnemyTiming(w){
+	switch(w){
+		case 1: return 2900;
+		case 2: return 1980;
+		case 3: return 1000;
+		case 4: return 2450;
+		case 5: return 3000;
+		default: return -999999999;
 	}
 }
 

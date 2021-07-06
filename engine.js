@@ -30,7 +30,6 @@ var army=0;
 
 //wave number & ticks passed in wave
 var wave=1;
-var max_timing=maxTiming(wave);
 
 //cards hotbar
 spots_ID = ["chopper", "archer", "defender", "police"];
@@ -115,7 +114,7 @@ function loop(){
 		coDrawImage('wave_text', -1, 268, 7, 1, 0, 0, 2.2);
 		printNumber(wave, 306, 8, 0.8, 0);
 
-		drawProgressBar(timing, max_timing);
+		drawProgressBar(timing, maxTiming(wave));
 
 		//if the castle's health gone too low, the game ends
 		if(castle.health<=0){
@@ -123,19 +122,36 @@ function loop(){
 			DEATH=true;
 		}
 
-		if(timing>=max_timing){
-			wave+=1;
+		if(timing >= lastEnemyTiming(wave)){
+			let _is_enemy_flag=false;
 
-			max_timing=maxTiming(wave);
-			timing=0;
+			for(let i=0;i<GameObjects.skulls.length;i++){
+				if(GameObjects.skulls[i].team==2) _is_enemy_flag=true;
+			}
 
-			if(max_timing==-1) max_timing=999999999;
+			if(!_is_enemy_flag){
+				for(let i=0; i<GameObjects.skulls.length; i++){
+					if(GameObjects.skulls[i].team == 1){
+						army += GameObjects.skulls[i].value;
+
+						GameObjects.skulls[i].dying = true;
+					}
+				}
+
+				if(timing < maxTiming(wave)){
+					army += generation_speed * (maxTiming(wave) - timing);
+				}
+
+				wave+=1;
+
+				timing=0;
+			}
 		}
 	}
 }
 
 //set mainloop
-setInterval(loop, 30);
+setInterval(loop, 20);
 
 /*
 (Debug use)
