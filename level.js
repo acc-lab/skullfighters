@@ -7,11 +7,11 @@ var generation_speed=0.28;
 
 function maxTiming(w){
 	switch(w){
-		case 1: return 3000;
-		case 2: return 2000;
-		case 3: return 1000;
-		case 4: return 2500;
-		case 5: return 3000;
+		case 1: return 3200;
+		case 2: return 2200;
+		case 3: return 1200;
+		case 4: return 2800;
+		case 5: return 3500;
 		default: return -1;
 	}
 }

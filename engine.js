@@ -124,26 +124,12 @@ function loop(){
 		}
 
 		if(timing>=max_timing){
-			let _is_enemy_flag=false;
+			wave+=1;
 
-			for(i=0;i<GameObjects.skulls.length;i++){
-				if(GameObjects.skulls[i].team==2) _is_enemy_flag=true;
-			}
+			max_timing=maxTiming(wave);
+			timing=0;
 
-			if(!_is_enemy_flag){
-				for(let i=0; i<GameObjects.skulls.length; i++){
-					army += GameObjects.skulls[i].value;
-
-					GameObjects.skulls[i].dying = true;
-				}
-
-				wave+=1;
-
-				max_timing=maxTiming(wave);
-				timing=0;
-
-				if(max_timing==-1) max_timing=999999999;
-			}
+			if(max_timing==-1) max_timing=999999999;
 		}
 	}
 }
