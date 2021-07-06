@@ -4,7 +4,7 @@ function skeleton_police_walking_func(reload=0, //the runtime delay between two 
 		new_bullet(this.x+25*this.dir, this.y-22, this.team, this.dir*25, 0.3, this.dir*0.2, 0.05, 16);
 		new_bullet(this.x+25*this.dir, this.y-24, this.team, this.dir*25, -0.3, this.dir*0.2, 0.05, 16);
 	},
-	walking_cycle_time = 3,
+	walking_cycle_time = 6,
 	walking_cycle_count = 3,
 	full_walking_cycle_delay = 8,
 	before_attack_delay = 3,

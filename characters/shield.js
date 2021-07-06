@@ -1,5 +1,5 @@
 function skeleton_shield_walking_func(
-	walking_cycle_time = 3,
+	walking_cycle_time = 4,
 	walking_cycle_count = 3,
 	full_walking_cycle_delay = 2,
 	detect_radius = 75
