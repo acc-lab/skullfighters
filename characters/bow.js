@@ -10,10 +10,10 @@ function skeleton_bow_walking_func(reload=33, //the runtime delay between two sh
 			new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -1.8, 0.2*this.dir, 0.2, 25);
 		}
 	},
-	walking_cycle_time = 6,
+	walking_cycle_time = 4,
 	walking_cycle_count = 3,
-	full_walking_cycle_delay = 2,
-	before_attack_delay = 2,
+	full_walking_cycle_delay = 8,
+	before_attack_delay = 4,
 	detect_radius = 450,
 	rapid_attack_radius = 250,
 	rapid_attack_random_radius = 100,
