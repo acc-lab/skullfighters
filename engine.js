@@ -151,7 +151,7 @@ function loop(){
 }
 
 //set mainloop
-setInterval(loop, 20);
+setInterval(loop, 30);
 
 /*
 (Debug use)
