@@ -32,10 +32,10 @@ var army=0;
 var wave=1;
 
 //cards hotbar
-spots_ID = ["chopper", "archer", "defender", "police"];
+var spots_ID = ["chopper", "archer", "defender", "police"];
 
 //ID to Spot() object
-spots = toSpots(spots_ID);
+var spots = toSpots(spots_ID);
 
 /*MAINLOOP*/
 function loop(){
