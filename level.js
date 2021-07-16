@@ -59,8 +59,6 @@ function levelFunction(w,t){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 120);
 		}if(t==1800){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 120);
-		}if(t==2001){
-
 		}if(t==2150){
 			new_skull(x=900, y=400, func_=skeleton_walking, 2, 70);
 		}if(t==2650){
