@@ -57,7 +57,7 @@ function skeleton_bow_walking_func(reload=33, //the runtime delay between two sh
 		}
 		if(this.tick==4*walking_cycle_time*walking_cycle_count+1){
 			this.cst="bow1";
-			this.x+=2*dir;
+			this.x+=3*dir;
 		}
 
 		//if the enemy is still too far away, then skip the attack

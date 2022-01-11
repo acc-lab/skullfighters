@@ -10,7 +10,7 @@ document.onmousemove=function(e) {
 	cursor_x = e.clientX - cv.offsetLeft + 450;
 	cursor_y = e.clientY - cv.offsetTop;
 }
-
+           
 //if mouse down, set cursor_click to true, so in the next game tick the mainloop function can detect
 cv.addEventListener('mousedown',function(){
 	new_cursor_click=true;

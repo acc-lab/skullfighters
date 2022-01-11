@@ -1,5 +1,5 @@
 /*version*/
-var version="1.5.1";
+var version="1.5.2";
 
 
 /*level design*/

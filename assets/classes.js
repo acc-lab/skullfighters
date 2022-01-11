@@ -44,7 +44,97 @@ class Chop{
 		}
 	}
 }
+class HealBomb{
+	constructor(x,y, team, vx, vy ,ax , ay ,damage, healrange ,bombhealth){
+		this.x=x;
+		this.y=y;
+		this.team=team;
+		this.vx=vx;
+		this.vy=vy;
+		this.ax=ax;
+		this.ay=ay;
+		this.damage=damage;
+		this.tickafterexplode=0;
+		this.radius=5;
+		this.lr=5;
+		this.l2r=5;
+		this.healrange=healrange;
+		this.bombmaxhealth=bombhealth;
+		this.bombhealth=bombhealth;
+		this.exposed=false;
+	}
+	checkIfTouched(skulls){
+		return this.y>=400;
+	}
+	drawSelf(debug){
+		ctx.lineWidth=SCALE
 
+		ctx.beginPath();
+		if(this.tickafterexplode==0){
+			coDrawImage("heal-bomb", -1, this.x, this.y, 1, 0, 0, 4);
+
+		}else{
+			ctx.fillStyle="#00FF00"+(Math.floor(32*(this.bombhealth/this.bombmaxhealth))<16?"0":"")+Math.floor(32*(this.bombhealth/this.bombmaxhealth)).toString(16)
+			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
+			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.l2r, 0, 2 * Math.PI);
+			ctx.fill()
+		}
+
+	}
+	update(){
+		if(this.tickafterexplode>0){
+			return
+		}
+		this.x+=this.vx*3/100;
+		this.y+=this.vy*3/100;
+		this.vx+=this.ax*3/100;
+		this.vy+=this.ay*3/100;
+	}
+	static frameAction(healbombgameobject,skulls){
+		let healbomb=healbombgameobject.instance
+		healbomb.update()
+		healbomb.drawSelf()
+		if(!healbomb.exploded){
+			healbomb.exploded=healbomb.checkIfTouched(skulls)
+		}
+		if(healbomb.exploded){
+			healbomb.tickafterexplode++;
+			//console.log(healbomb.radius)
+			healbomb.l2r=healbomb.lr
+			healbomb.lr=healbomb.radius
+			if(healbomb.tickafterexplode>500){
+				healbomb.radius=healbomb.healrange
+			}else{
+				healbomb.radius=healbomb.healrange*(Math.exp(healbomb.tickafterexplode/5-5)/(Math.exp(healbomb.tickafterexplode/5-5)+1))
+			}
+			for(let index in skulls){
+				let skull=skulls[index]
+				if(healbomb.team!=skull.team){
+					continue;
+				}
+				if(Math.abs(healbomb.x-skull.x)<=healbomb.radius){
+					if(skull.health>=skull.max_health){
+						continue;
+					}
+					skull.health-=healbomb.damage;
+					skull.health_bar_show=30;
+					healbomb.bombhealth+=healbomb.damage
+
+					if(skull.health>skull.max_health){
+						healbomb.bombhealth-=skull.max_health-skull.health
+						skull.health=skull.max_health
+					}
+					if(healbomb.bombhealth<=0){
+						skull.health+=healbomb.bombhealth
+						healbombgameobject.removeSelf()
+						return -1;
+					}
+				}
+			}
+		}
+		return 0;
+	}
+}
 class Bullet{
 	constructor(x, y, team, vx, vy, ax, ay, damage){
 		this.x=x;
@@ -369,7 +459,10 @@ function new_arrow(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25
 	narrow=new Arrow(x_, y_, team_, vx_, vy_, ax_, ay_, damage_);
 	GameObjects.arrows.push(narrow);
 }
-
+function new_healbomb(x_,y_,team_,vx_,vy_,ax_,ay_,heal_,healrange_,bombhealth_){
+	nhealbomb=new HealBomb(x_,y_,team_,vx_,vy_,ax_,ay_,-heal_,healrange_,bombhealth_)
+	GameObjects.healbomb.push(nhealbomb)
+}
 function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25){
 	//vx_,vy_: initial bullet's velocity
 	//ax_,ay_: bullet's acceleration (apparently you can have different acceleration for different bullets)

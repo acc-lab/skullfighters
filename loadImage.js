@@ -67,6 +67,18 @@ function loadAllImage(){
 	img("bow3_walk", [-17.5,-58.5]);
 	img("bow4_walk", [-17.5,-58.5]);
 
+	img("healer_idle", [-17.5,-65]);
+
+	img("healer2", [-17.5,-65]);
+	img("healer3", [-14.5,-65]);
+	img("healer4", [-12,-65]);
+
+	img("healer2_walk", [-17.5,-65]);
+	img("healer3_walk", [-17.5,-65]);
+	img("healer4_walk", [-17.5,-65]);
+	
+	img("heal-bomb", [-18,-18]);
+
 	//arrow for bow skull
 	img("arrow", [-12,-16]); //#
 
@@ -81,6 +93,7 @@ function loadAllImage(){
 	img("icon_of_bow", [-49.5,1]);
 	img("icon_of_shield", [-49.5,1]);
 	img("icon_of_police", [-49.5,1]);
+	img("icon_of_healer",[-49.5,1])
 
 	//the tower to defence(left-down corner)
 	img("castle", [-20,-45]);
@@ -117,7 +130,7 @@ var loaded=false;
 
 //function to check if all images are loaded
 function checkIfLoaded(){
-	if(Object.keys(store).length==45){
+	if(Object.keys(store).length==54){
 		loaded=true;
 	}
 }

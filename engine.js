@@ -32,7 +32,7 @@ var army=0;
 var wave=1;
 
 //cards hotbar
-var spots_ID = ["chopper", "archer", "defender", "police"];
+var spots_ID = ["chopper", "archer", "defender", "police", "healer"];
 
 //ID to Spot() object
 var spots = toSpots(spots_ID);
@@ -56,9 +56,9 @@ function loop(){
 			i += Skull.frameAction(skull, GameObjects.skulls); // 0 or -1
 		}
 
-		drawSkulls(GameObjects.skulls, team=1);
-
 		castle.drawSelf();
+
+		drawSkulls(GameObjects.skulls, team=1);
 
 		drawSkulls(GameObjects.skulls, team=2);
 		
@@ -79,6 +79,12 @@ function loop(){
 			chop = new ObjectInstance("chops", i);
 
 			Chop.frameAction(chop, GameObjects.skulls);
+		}
+		
+		for(let i=0;i<GameObjects.healbomb.length;i++){
+			healbomb= new ObjectInstance("healbomb",i)
+
+			i += HealBomb.frameAction(healbomb,GameObjects.skulls)
 		}
 		//set all chops to 0. Every chop only survive for 1 frame
 		//for continuous attack, the attacker will spawn a chop attack every frame
@@ -156,7 +162,6 @@ setInterval(loop, 30);
 // setTimeout(function(){wave=4;timing=0; army=2100;}, 100);
 
 /*
-(Debug use)
 
 setTimeout(function(){
 	function printNumberA(number_txt, x, y, size, effect=0, width=10, align="left"){
@@ -185,6 +190,7 @@ setTimeout(function(){
 			}
 		}
 	}
-	printNumberA(Object.keys(store), 400, 200, 2, 0, 8, "center");
+	printNumberA(Object.keys(store), -100, 200, 2, 0, 8, "left");
 }, 100);
+
 */
