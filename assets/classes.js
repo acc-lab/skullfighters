@@ -63,7 +63,7 @@ class HealBomb{
 		this.bombhealth=bombhealth;
 		this.exposed=false;
 	}
-	checkIfTouched(skulls){
+	checkIfTouched(){
 		return this.y>=400;
 	}
 	drawSelf(debug){
@@ -91,24 +91,35 @@ class HealBomb{
 		this.vy+=this.ay*3/100;
 	}
 	static frameAction(healbombgameobject,skulls){
-		let healbomb=healbombgameobject.instance
-		healbomb.update()
-		healbomb.drawSelf()
+		let healbomb=healbombgameobject.instance;
+
+		healbomb.update();
+		healbomb.drawSelf();
+
 		if(!healbomb.exploded){
-			healbomb.exploded=healbomb.checkIfTouched(skulls)
+			healbomb.exploded=healbomb.checkIfTouched();
 		}
+
 		if(healbomb.exploded){
-			healbomb.tickafterexplode++;
-			//console.log(healbomb.radius)
-			healbomb.l2r=healbomb.lr
-			healbomb.lr=healbomb.radius
+			healbomb.tickafterexplode++ ;
+
+			healbomb.l2r=healbomb.lr;
+			healbomb.lr=healbomb.radius;
 			if(healbomb.tickafterexplode>500){
-				healbomb.radius=healbomb.healrange
+				healbomb.radius=healbomb.healrange;
 			}else{
-				healbomb.radius=healbomb.healrange*(Math.exp(healbomb.tickafterexplode/5-5)/(Math.exp(healbomb.tickafterexplode/5-5)+1))
+				healbomb.radius=healbomb.healrange*(Math.exp(healbomb.tickafterexplode/5-5)/(Math.exp(healbomb.tickafterexplode/5-5)+1));
 			}
+
+			healbomb.bombhealth -= 0.2;
+
+			if(healbomb.bombhealth<=0){
+				healbombgameobject.removeSelf();
+				return -1;
+			}
+
 			for(let index in skulls){
-				let skull=skulls[index]
+				let skull=skulls[index];
 				if(healbomb.team!=skull.team){
 					continue;
 				}
@@ -118,15 +129,15 @@ class HealBomb{
 					}
 					skull.health-=healbomb.damage;
 					skull.health_bar_show=30;
-					healbomb.bombhealth+=healbomb.damage
+					healbomb.bombhealth+=healbomb.damage;
 
 					if(skull.health>skull.max_health){
-						healbomb.bombhealth-=skull.max_health-skull.health
-						skull.health=skull.max_health
+						healbomb.bombhealth-=skull.max_health-skull.health;
+						skull.health=skull.max_health;
 					}
 					if(healbomb.bombhealth<=0){
-						skull.health+=healbomb.bombhealth
-						healbombgameobject.removeSelf()
+						skull.health+=healbomb.bombhealth;
+						healbombgameobject.removeSelf();
 						return -1;
 					}
 				}
