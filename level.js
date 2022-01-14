@@ -1,5 +1,5 @@
 /*version*/
-var version="1.5.3";
+var version="1.5.4";
 
 
 /*level design*/
@@ -383,6 +383,9 @@ function levelFunction(w,t){
 				}
 			),2,8000);
 		}
+	}
+	else if(wave==6){
+		generation_speed=0;
 	}
 
 	return _army;

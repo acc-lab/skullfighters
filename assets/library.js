@@ -40,12 +40,12 @@ var Library = new LibraryCls({
 	}),
 
 	"healer": new SpawningCard("icon_of_healer", 400, 150, function(){
-		new_skull(x=0,y=400,func_=skeleton_healer_walking_func(60,
+		new_skull(x=0,y=400,func_=skeleton_healer_walking_func(80,
 			shoot_func=function(l_l,l_r){
-		        let dist = Math.abs(this.x-(this.team==1?l_l:l_r))
-		        new_healbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,2,randomize(60, 80),100)
+		        let dist = Math.abs(this.x-(this.team==1?l_l:l_r));
+		        new_healbomb(this.x+16*this.dir, this.y-22, this.team, 150*this.dir, (22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150, 0, 8/900*(150)**2, 1, randomize(60, 80), 150, 0.25);
 	    	}
-		),1,600,400)
+		), 1, 400, 400)
 	})
 
 });
