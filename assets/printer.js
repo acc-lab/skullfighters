@@ -123,3 +123,33 @@ function printNumber(number_txt, x, y, size, effect=0, width=10, align="left"){
 		}
 	}
 }
+
+function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID"){
+	var xm;//xmid and ymid of the "bars"
+	switch (align) {
+		case "MID":
+			xm=x;
+			break;
+		case "LEFT":
+			xm=x+w/2;
+			break;
+		case "RIGHT":
+			xm=x-w/2;
+			break;
+	}
+
+    ctx.lineWidth=SCALE*h;
+
+    ctx.beginPath();
+    ctx.strokeStyle=color2;
+    ctx.moveTo(SCALE*(xm-w/2), SCALE*y);
+    ctx.lineTo(SCALE*(xm+w/2), SCALE*y);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle=color1;
+    ctx.moveTo(SCALE*(xm-w/2), SCALE*y);
+    ctx.lineTo(SCALE*(xm-w/2+(val/maxVal)*w), SCALE*y);
+    ctx.stroke();
+    
+}

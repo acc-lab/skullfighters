@@ -1,6 +1,6 @@
 function getLeadings(skull, skulls){
 	//detects leadingL and leadingR for this skull
-	let leadingL=35;
+	let leadingL=20;
 	let leadingR=1500;
 	
 	if(skull.team==1){

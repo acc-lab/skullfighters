@@ -96,7 +96,7 @@ function loadAllImage(){
 	img("icon_of_healer",[-49.5,1])
 
 	//the tower to defence(left-down corner)
-	img("castle", [-20,-45]);
+	img("castle", [0,-49]);
 
 	//number font of property($)
 	img("0",[-4.5,0],".svg");

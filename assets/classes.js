@@ -379,30 +379,7 @@ class Skull{
 		
 		if(!this.dying && (this.health_bar_show>0)){
 			this.health_bar_show-=1;
-			
-			ctx.save();
-			
-			if(this.health_bar_show<=10){
-				ctx.globalAlpha=(this.health_bar_show)/10;
-			}
-			
-			ctx.beginPath();
-			
-			ctx.lineWidth=SCALE*4;
-			ctx.strokeStyle="#393939";
-			
-			ctx.moveTo(SCALE*(this.x-13.5),SCALE*(this.y-60));
-			ctx.lineTo(SCALE*(this.x+13.5),SCALE*(this.y-60));
-			ctx.stroke();
-			
-			ctx.beginPath();
-			
-			ctx.strokeStyle="#ffffff";
-			ctx.moveTo(SCALE*(this.x-13.5),SCALE*(this.y-60));
-			ctx.lineTo(SCALE*(this.x-13.5+(this.health/this.max_health)*27),SCALE*(this.y-60));
-			ctx.stroke();
-			
-			ctx.restore();
+			drawHealthBar(this.x,this.y-60,27,4,this.health,this.max_health,"#FFFFFF","#393939")
 		}
 	}
 	static frameAction(skull, skulls){
@@ -453,6 +430,31 @@ class Skull{
 		return [this.x-5,this.y-44,10,30];
 	}
 }
+
+/*
+class Building{
+	constructor(x,y,func,team,health,defense,cst){
+		this.x=x;
+		this.y=y;
+		this.health=health;
+		this.max_health=health;
+		this.cstFunc=func;
+		this.defense=defense;
+		this.cst="b-idle";
+		this.tick=0;
+		this.dir=team==1?1:-1;
+
+		this.cstFunc(null,null,"INIT");
+	}
+	drawSelf(){
+		coDrawImage(this.cst, this.team, this.x, this.y, this.dir, (this.effect>0), this.dying_effect, 2, this.rect);
+
+	}
+	frameAction(){
+		this.drawSelf()
+	}
+}
+*/
 
 function new_chop(x_, y_, team_, damage_=10){
 	nchop=new Chop(x_, y_, team_, damage_);
