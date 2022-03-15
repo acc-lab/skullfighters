@@ -11,7 +11,7 @@ function skeleton_healer_walking_func(reload=400,
 	rapid_attack_radius = 700,
 	attack_radius = 20
 ){
-    function skeleton_healer_walking(E,W,init){
+    function skeleton_healer_walking(L,R,init){
         if(init=="INIT"){
             this.attack_radius=attack_radius;
             this.skipNeigborEnemies=true;
@@ -60,9 +60,9 @@ function skeleton_healer_walking_func(reload=400,
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+7){this.cst="healer2"}
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+14){this.cst="healer3"}
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+21){this.cst="healer4"}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+28){this.cst="healer_idle";/*custom shot*/this.shoot_func=shoot_func;this.shoot_func(E,W)}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+28){this.cst="healer_idle";/*custom shot*/this.shoot_func=shoot_func;this.shoot_func(L,R)}
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+28+reload+12){
-            if((this.team==1&&this.x+rapid_attack_radius>=E)||(this.team==2&&this.x-rapid_attack_radius<=W)){
+            if((this.team==1&&this.x+rapid_attack_radius>=L)||(this.team==2&&this.x-rapid_attack_radius<=R)){
                 this.tick=4*walking_cycle_count*walking_cycle_time+1;
             }else{
                 this.tick=1;
