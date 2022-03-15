@@ -52,7 +52,7 @@ function skeleton_healer_walking_func(reload=400,
 			this.x+=3*dir;
         }
 
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay && ((this.x+detect_radius<=E&&this.team==1)||(this.x-detect_radius>=W&&this.team==2))){
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay && ((this.x+detect_radius<=L&&this.team==1)||(this.x-detect_radius>=R&&this.team==2))){
            this.tick=1; 
         }
 
