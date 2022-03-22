@@ -74,7 +74,7 @@ function skeleton_walking_func(
 		}
 		
 		//animation: attack
-		if(4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+7<=this.tick && this.tick<4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+11){
+		if(4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+7<=this.tick && this.tick<=4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+10){
 			if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+7){
 				this.cst="chop1";
 				if(dir==1)
@@ -98,9 +98,6 @@ function skeleton_walking_func(
 			}
 			if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+10){
 				this.cst="chop4";
-			}
-			if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+11){
-				this.cst="chop5";
 			}
 			this.x-=3*dir;
 		}
