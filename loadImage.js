@@ -52,7 +52,6 @@ function loadAllImage(){
 	img("chop2", [-9.5,-58.5]);
 	img("chop3", [-9.5,-58.5]);
 	img("chop4", [-9.5,-58.5]);
-	img("chop5", [-9.5,-58.5]);
 
 	//bow skull idle
 	img("bow1", [-17.5,-58.5]);
@@ -130,7 +129,7 @@ var loaded=false;
 
 //function to check if all images are loaded
 function checkIfLoaded(){
-	if(Object.keys(store).length==54){
+	if(Object.keys(store).length==53){
 		loaded=true;
 	}
 }
