@@ -379,7 +379,7 @@ class Skull{
 		
 		if(!this.dying && (this.health_bar_show>0)){
 			this.health_bar_show-=1;
-			drawHealthBar(this.x,this.y-60,27,4,this.health,this.max_health,"#FFFFFF","#393939")
+			drawHealthBar(this.x,this.y-60,27,4,this.health,this.max_health,"#FFFFFF","#393939", "MID", this.health_bar_show, 30);
 		}
 	}
 	static frameAction(skull, skulls){

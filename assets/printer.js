@@ -124,7 +124,7 @@ function printNumber(number_txt, x, y, size, effect=0, width=10, align="left"){
 	}
 }
 
-function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID"){
+function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID", health_bar_show, max_health_bar_show){
 	var xm;//xmid and ymid of the "bars"
 	switch (align) {
 		case "MID":
@@ -139,6 +139,11 @@ function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID"){
 	}
 
     ctx.lineWidth=SCALE*h;
+	
+	if(health_bar_show > 1/3*max_health_bar_show)
+		ctx.globalAlpha = 1;
+	else
+		ctx.globalAlpha = 3 * health_bar_show / max_health_bar_show;
 
     ctx.beginPath();
     ctx.strokeStyle=color2;
