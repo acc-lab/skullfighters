@@ -156,5 +156,7 @@ function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID", hea
     ctx.moveTo(SCALE*(xm-w/2), SCALE*y);
     ctx.lineTo(SCALE*(xm-w/2+(val/maxVal)*w), SCALE*y);
     ctx.stroke();
+	
+	ctx.globalAlpha = 1;
     
 }
