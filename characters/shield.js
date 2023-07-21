@@ -51,9 +51,11 @@ function skeleton_shield_walking_func(
 			if(this.team==1 && this.x+detect_radius>=R){
 				this.cst="shield1";
 				this.tick-=1;
+				new_bash(x,y,1)
 			}else if(this.team==2 && this.x-detect_radius<=L){
 				this.cst="shield1";
 				this.tick-=1;
+				new_bash(x,y,2)
 			}else{
 				this.tick=1;
 			}

@@ -6,7 +6,7 @@ var cv = document.getElementById("game-canvas");
 var SCALE = 3;
 
 /*debug*/
-var debugging=false;
+var debugging=true;
 
 cv.width = SCALE*900;
 cv.height = SCALE*400;
@@ -85,6 +85,12 @@ function loop(){
 			healbomb= new ObjectInstance("healbomb",i)
 
 			i += HealBomb.frameAction(healbomb,GameObjects.skulls)
+		}
+
+		for(let i=0;i<GameObjects.bashes.length;i++){
+			bash= new ObjectInstance("bashes",i)
+
+			i+= Bash.frameAction(bash,GameObjects.skulls)
 		}
 		//set all chops to 0. Every chop only survive for 1 frame
 		//for continuous attack, the attacker will spawn a chop attack every frame

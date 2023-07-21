@@ -431,6 +431,57 @@ class Skull{
 	}
 }
 
+class Bash{
+	static lifespan=4;
+	constructor(x,y,team){
+		this.x=x;
+		this.y=y;
+		this.team=team;
+		this.existed_time=0;
+		this.vx=2;
+	}
+	get rect(){
+		return [this.x-1,this.y-10,10,20]
+	}
+	checkIfTouched(skulls){
+		for(j=0;j<skulls.length;j++){
+			skull=skulls[j];
+			if(touched(skull.rect, this.rect)){
+				if(skull.team!=this.team && !skull.dying){
+					//if collides, different team and the skull isn't dying yet
+
+		console.log("working")
+					//damage
+					skull.effect=10;
+					skull.health-=1;
+					skull.x-=this.vx*skull.dir;
+
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	static frameAction(bash,skulls){
+		if(bash.instance.existed_time>Bash.lifespan){
+			bash.removeSelf()
+			return -1;
+		}
+		var ibash=bash.instance;
+		//debuggggggging
+		if(debugging){
+			drawRect(ibash.rect,ibash.team);
+		}
+
+		//if touched, skull go backward
+		ibash.checkIfTouched(skulls);
+		
+		ibash.x+=ibash.vx*ibash.team==1?1:-1;
+		ibash.existed_time++;
+		return 0;
+	}
+
+}
 /*
 class Building{
 	constructor(x,y,func,team,health,defense,cst){
@@ -488,4 +539,9 @@ function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, v
 
 	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_);
 	GameObjects.skulls.push(nskull);
+}
+
+function new_bash(x_=0,y_=0,team_=1){
+	nbash=new Bash(x_,y_,team_)
+	GameObjects.bashes.push(nbash);
 }
