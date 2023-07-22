@@ -47,4 +47,4 @@ class Castle{
 
 //the castle you're defending's hitbox
 var castle = new Castle(x=0, hitbox=[16,302,19,98], maxHealth=2000, team=1);
-var castle_enemy = new Castle(x=900, hitbox=[865,302,19,98], maxHealth=500000, team=2);
+var castle_enemy = new Castle(x=900, hitbox=[865,302,19,98], maxHealth=2000, team=2);

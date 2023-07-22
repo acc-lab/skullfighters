@@ -164,7 +164,7 @@ function loop(){
 }
 
 //set mainloop
-setInterval(loop, 20);
+setInterval(loop, 30);
 
 // setTimeout(function(){wave=4;timing=0; army=2100;}, 100);
 
