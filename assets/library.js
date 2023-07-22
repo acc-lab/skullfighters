@@ -10,16 +10,16 @@ var Library = new LibraryCls({
 	}),
 
 	"archer": new SpawningCard("icon_of_bow", 120, 60, function(){
-		new_skull(x=0, y=400, func_=skeleton_bow_walking_func(35,
+		new_skull(x=0, y=400, func_=skeleton_bow_walking_func(45,
 			function(lead_l, lead_r){
 				let dist=Math.abs(this.x-(this.team==1?lead_r:lead_l)); //get distance
 		
 				if(dist>270){
 					//long shoot
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 11*this.dir, -3, 0.2*this.dir, 0.2, 40);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 11*this.dir, -3, 0.2*this.dir, 0.2, 30);
 				}else{
 					//short shoot
-					new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -1.8, 0.2*this.dir, 0.2, 25);
+					new_arrow(this.x+16*this.dir, this.y-22, this.team, 10*this.dir, -1.8, 0.2*this.dir, 0.2, 15);
 				}
 			}
 		), 1, 80, 120);

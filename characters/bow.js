@@ -15,8 +15,8 @@ function skeleton_bow_walking_func(reload=33, //the runtime delay between two sh
 	full_walking_cycle_delay = 8,
 	before_attack_delay = 4,
 	detect_radius = 450,
-	rapid_attack_radius = 250,
-	rapid_attack_random_radius = 100,
+	rapid_attack_radius = 400,
+	rapid_attack_random_radius = 50,
 	attack_radius = 20
 ){
 	//the function to generate

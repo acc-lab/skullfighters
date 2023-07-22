@@ -33,15 +33,8 @@ class Chop{
 		
 		chop.instance.checkIfTouched(skulls)
 		
-		//check if the attack hitbox collides the castle hitbox
-		if(touched(castle.hitbox,chop.instance.rect)){
-			if(chop.instance.team!=1){
-				//axe attacks from the enemies' team that collides
-
-				//damage the castle
-				castle.damage(chop.instance.damage);
-			}
-		}
+		if( castle.projectileCheck(chop) == -1 ) return -1;
+		if( castle_enemy.projectileCheck(chop) == -1 ) return -1;
 	}
 }
 class HealBomb{
@@ -210,16 +203,8 @@ class Bullet{
 			return -1;
 		}
 
-		if(touched(castle.hitbox,bullet.instance.rect)){
-			if(bullet.instance.team!=1){
-				//damage the castle
-				castle.damage(bullet.instance.damage);
-
-				bullet.removeSelf();
-
-				return -1;
-			}
-		}
+		if( castle.projectileCheck(bullet) == -1 ) return -1;
+		if( castle_enemy.projectileCheck(bullet) == -1 ) return -1;
 
 		//basic physic
 		bullet.instance.update();
@@ -315,19 +300,8 @@ class Arrow{
 			return -1;
 		}
 
-		if(touched(castle.hitbox,arrow.instance.rect)){
-			//if the arrow touched the castle we're defending
-			if(arrow.instance.team!=1){
-				//if the arrow is from the enemies' team
-
-				//damage the castle
-				castle.damage(arrow.instance.damage);
-
-				arrow.removeSelf();
-				
-				return -1;
-			}
-		}
+		if( castle.projectileCheck(arrow) == -1 ) return -1;
+		if( castle_enemy.projectileCheck(arrow) == -1 ) return -1;
 
 		//basic physic
 		arrow.instance.update();
@@ -416,6 +390,7 @@ class Skull{
 			return -1;
 		}
 		
+		/*
 		//if the skull's from Team 1, and it surpassed the r.h.s screen edge
 		if(skull.instance.x>=915 && skull.instance.team==1 && !skull.instance.dying){
 			//increase the property by the skull's value
@@ -423,6 +398,7 @@ class Skull{
 
 			skull.instance.dying=true;
 		}
+		*/
 
 		return 0;
 	}
