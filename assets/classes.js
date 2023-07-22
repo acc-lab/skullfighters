@@ -37,6 +37,64 @@ class Chop{
 		if( castle_enemy.projectileCheck(chop) == -1 ) return -1;
 	}
 }
+class Bash{
+	static lifespan=20;
+	constructor(x,y,team){
+		this.x=x;
+		this.y=y;
+		this.team=team;
+		this.existed_time=0;
+		this.vx=20;
+	}
+	get rect(){
+		return [this.x-(this.vx*(this.team==1?0:1)),this.y-15,this.vx/.9,30];
+	}
+	checkIfTouched(skulls){
+		for(j=0;j<skulls.length;j++){
+			skull=skulls[j];
+			if(touched(skull.rect, this.rect)){
+				if(skull.team!=this.team && !skull.dying){
+					//if collides, different team and the skull isn't dying yet
+
+					//damage
+					skull.effect=80;
+					skull.health-=1;
+					skull.x-=this.vx*skull.dir;
+					skull.stun=80;
+
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	drawSelf(){
+		coDrawImage("bash",this.team,this.x,this.y,this.team==1?1:-1,0,0,3,this.rect)
+	}
+	static frameAction(bash,skulls){
+		if(bash.instance.existed_time>Bash.lifespan){
+			bash.removeSelf()
+			return -1;
+		}
+		var ibash=bash.instance;
+
+		//if touched, skull go backward
+		ibash.checkIfTouched(skulls);
+
+		ibash.x+=ibash.vx*((ibash.team==1)?1:-1);
+		ibash.vx*=.8;
+		ibash.existed_time++;
+
+		ibash.drawSelf();
+		
+		if(debugging){
+			drawRect(ibash.rect,ibash.team);
+		}
+
+		return 0;
+	}
+
+}
 class HealBomb{
 	constructor(x, y, team, vx, vy, ax, ay, damage, healRange, health, expiringSpeed){
 		this.x=x;
@@ -376,7 +434,6 @@ class Skull{
 
 			//run if the skull is not stunned
 			if(!skull.instance.stun){
-				//run the skull's AI by this leadingL and leadingR
 				skull.instance.cstFunc(leadings[0], leadings[1]);
 			}else{
 				skull.instance.stun--;
@@ -414,64 +471,6 @@ class Skull{
 	}
 }
 
-class Bash{
-	static lifespan=20;
-	constructor(x,y,team){
-		this.x=x;
-		this.y=y;
-		this.team=team;
-		this.existed_time=0;
-		this.vx=20;
-	}
-	get rect(){
-		return [this.x-(this.vx*(this.team==1?0:1)),this.y-15,this.vx/.9,30]
-	}
-	checkIfTouched(skulls){
-		for(j=0;j<skulls.length;j++){
-			skull=skulls[j];
-			if(touched(skull.rect, this.rect)){
-				if(skull.team!=this.team && !skull.dying){
-					//if collides, different team and the skull isn't dying yet
-
-					//damage
-					skull.effect=80;
-					skull.health-=1;
-					skull.x-=this.vx*skull.dir;
-					skull.stun=80;
-
-				}
-			}
-		}
-		return false;
-	}
-	drawSelf(){
-		coDrawImage("bash",this.team,this.x,this.y,this.team==1?1:-1,0,0,3,this.rect)
-	}
-	static frameAction(bash,skulls){
-		if(bash.instance.existed_time>Bash.lifespan){
-			//console.log("a")
-			bash.removeSelf()
-			return -1;
-		}
-		var ibash=bash.instance;
-		ibash.drawSelf();
-		//debuggggggging
-		if(debugging){
-			drawRect(ibash.rect,ibash.team);
-		}
-
-		//if touched, skull go backward
-		ibash.checkIfTouched(skulls);
-		
-		ibash.x-=ibash.vx*(ibash.team==2?1:-1);
-
-		//projectile decelerate
-		ibash.vx*=.8;
-		ibash.existed_time++;
-		return 0;
-	}
-
-}
 /*
 class Building{
 	constructor(x,y,func,team,health,defense,cst){
@@ -502,6 +501,11 @@ function new_chop(x_, y_, team_, damage_=10){
 	GameObjects.chops.push(nchop);
 }
 
+function new_bash(x_=0,y_=0,team_=1){
+	nbash = new Bash(x_,y_,team_);
+	GameObjects.bashes.push(nbash);
+}
+
 function new_arrow(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25){
 	//vx_,vy_: initial arrow's velocity
 	//ax_,ay_: arrow's acceleration (apparently you can have different acceleration for different bows)
@@ -529,9 +533,4 @@ function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, v
 
 	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_);
 	GameObjects.skulls.push(nskull);
-}
-
-function new_bash(x_=0,y_=0,team_=1){
-	nbash=new Bash(x_,y_,team_)
-	GameObjects.bashes.push(nbash);
 }

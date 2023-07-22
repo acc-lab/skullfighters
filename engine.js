@@ -87,12 +87,13 @@ function loop(){
 
 			i += HealBomb.frameAction(healbomb,GameObjects.skulls)
 		}
-
+		
 		for(let i=0;i<GameObjects.bashes.length;i++){
 			bash= new ObjectInstance("bashes",i)
 
 			i+= Bash.frameAction(bash,GameObjects.skulls)
 		}
+
 		//set all chops to 0. Every chop only survive for 1 frame
 		//for continuous attack, the attacker will spawn a chop attack every frame
 		GameObjects.chops=[];
@@ -164,7 +165,7 @@ function loop(){
 }
 
 //set mainloop
-setInterval(loop, 30);
+setInterval(loop, 20);
 
 // setTimeout(function(){wave=4;timing=0; army=2100;}, 100);
 
