@@ -6,7 +6,7 @@ var cv = document.getElementById("game-canvas");
 var SCALE = 3;
 
 /*debug*/
-var debugging=true;
+var debugging=false;
 
 cv.width = SCALE*900;
 cv.height = SCALE*400;
