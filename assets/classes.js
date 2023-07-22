@@ -343,6 +343,8 @@ class Skull{
 		this.cstFunc(null,null,"INIT"); //init
 		
 		this.health_bar_show=0;
+
+		this.stun=false;
 	}
 	drawSelf(){
 		coDrawImage(this.cst, this.team, this.x, this.y, this.dir, (this.effect>0), this.dying_effect, 2, this.rect);
@@ -372,8 +374,13 @@ class Skull{
 
 			let leadings = getLeadings(skull.instance, skulls);
 
-			//run the skull's AI by this leadingL and leadingR
-			skull.instance.cstFunc(leadings[0], leadings[1]);
+			//run if the skull is not stunned
+			if(!skull.instance.stun){
+				//run the skull's AI by this leadingL and leadingR
+				skull.instance.cstFunc(leadings[0], leadings[1]);
+			}else{
+				skull.instance.stun--;
+			}
 
 		}else{
 			//set normal effect to 0, and make the dying fade-out effect increase
@@ -407,6 +414,64 @@ class Skull{
 	}
 }
 
+class Bash{
+	static lifespan=20;
+	constructor(x,y,team){
+		this.x=x;
+		this.y=y;
+		this.team=team;
+		this.existed_time=0;
+		this.vx=20;
+	}
+	get rect(){
+		return [this.x-(this.vx*(this.team==1?0:1)),this.y-15,this.vx/.9,30]
+	}
+	checkIfTouched(skulls){
+		for(j=0;j<skulls.length;j++){
+			skull=skulls[j];
+			if(touched(skull.rect, this.rect)){
+				if(skull.team!=this.team && !skull.dying){
+					//if collides, different team and the skull isn't dying yet
+
+					//damage
+					skull.effect=80;
+					skull.health-=1;
+					skull.x-=this.vx*skull.dir;
+					skull.stun=80;
+
+				}
+			}
+		}
+		return false;
+	}
+	drawSelf(){
+		coDrawImage("bash",this.team,this.x,this.y,this.team==1?1:-1,0,0,3,this.rect)
+	}
+	static frameAction(bash,skulls){
+		if(bash.instance.existed_time>Bash.lifespan){
+			//console.log("a")
+			bash.removeSelf()
+			return -1;
+		}
+		var ibash=bash.instance;
+		ibash.drawSelf();
+		//debuggggggging
+		if(debugging){
+			drawRect(ibash.rect,ibash.team);
+		}
+
+		//if touched, skull go backward
+		ibash.checkIfTouched(skulls);
+		
+		ibash.x-=ibash.vx*(ibash.team==2?1:-1);
+
+		//projectile decelerate
+		ibash.vx*=.8;
+		ibash.existed_time++;
+		return 0;
+	}
+
+}
 /*
 class Building{
 	constructor(x,y,func,team,health,defense,cst){
@@ -464,4 +529,9 @@ function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, v
 
 	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_);
 	GameObjects.skulls.push(nskull);
+}
+
+function new_bash(x_=0,y_=0,team_=1){
+	nbash=new Bash(x_,y_,team_)
+	GameObjects.bashes.push(nbash);
 }
