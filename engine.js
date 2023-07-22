@@ -6,7 +6,7 @@ var cv = document.getElementById("game-canvas");
 var SCALE = 3;
 
 /*debug*/
-var debugging=false;
+var debugging=true;
 
 cv.width = SCALE*900;
 cv.height = SCALE*400;
@@ -57,6 +57,7 @@ function loop(){
 		}
 
 		castle.drawSelf();
+		castle_enemy.drawSelf();
 
 		drawSkulls(GameObjects.skulls, team=1);
 
@@ -163,7 +164,7 @@ function loop(){
 }
 
 //set mainloop
-setInterval(loop, 30);
+setInterval(loop, 20);
 
 // setTimeout(function(){wave=4;timing=0; army=2100;}, 100);
 

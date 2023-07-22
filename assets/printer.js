@@ -8,7 +8,7 @@ function clearScreen(){
 //draw image
 function coDrawImage(
 		img, //image name to print
-		team, //team for skull printing. If it's not a skull(e.g. logo printing), set "team" with -1 (recommanded)
+		team, //team for skull printing. If it's not a skull(e.g. logo printing), set "team" with -1 (recommended)
 		x=0, //x coordinate. Without considering the "shift" property of each image, the function prints the image with (x,y) as left-up corner's coordinate
 		y=0, //y coordinate. For skull printing, we recommand 400 as default, and the "shift" property should do the rest job
 		dir=1, //direction: left=1, right=-1
@@ -70,9 +70,9 @@ function coDrawImage(
 	ctx.globalAlpha=1;
 
 	//debug mode only: print the hitbox of this skull(skip automatically if team is -1)
-	if(debugging && (team==1 || team==2)){
+	if(debugging && (hitbox != null)){
 		drawRect(hitbox, team);
-		drawRect([x-0.5,y-0.5,1,1], team);
+		if(team == 1 || team == 2) drawRect([x-0.5,y-0.5,1,1], team);
 	}
 }
 
@@ -80,7 +80,7 @@ function coDrawImage(
 function drawRect(args, team){
 	ctx.save();
 
-	ctx.lineWidth = 1;
+	ctx.lineWidth = 2;
 
 	ctx.beginPath();
 	//select color: team 1(your team)=>green; team 2(enemy)=>red
