@@ -96,6 +96,17 @@ function drawRect(args, team){
 	ctx.restore();
 }
 
+//draw filled rectangle
+function drawFilledRect(args,color){
+	ctx.save();
+	
+	ctx.fillStyle=color;
+
+	ctx.fillRect(SCALE*args[0],SCALE*args[1],SCALE*args[2],SCALE*args[3]);
+
+	ctx.restore();
+}
+
 //number text engine(based on "coDrawImage")
 function printNumber(number_txt, x, y, size, effect=0, width=10, align="left"){
 	if(!isNaN(number_txt))
