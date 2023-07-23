@@ -16,6 +16,7 @@ function coDrawImage(
 		d_eff=0, //dying effect: use for skull dying fade-out effect
 		m_scale=2, //shrink the image by this specific scale. BIGGER=>image smaller
 		hitbox=null, //if hitbox=null, team must be -1(at least not 1 and 2)
+		sketching=1,// height:width,will keep the same area (sketching>0)
 	){
 	//get picture by name
 	pic=store[img];
@@ -49,7 +50,7 @@ function coDrawImage(
 	if(dir==1){
 		//draw image
 		//l.u. corner coordinate=>(mx+sx,my+sy), e.g.: sx=-20, sy=10 => (mx-20,my+10)
-		ctx.drawImage(pic,SCALE*(mx+sx),SCALE*(my+sy),SCALE*mw,SCALE*mh);
+		ctx.drawImage(pic,SCALE*(mx+sx),SCALE*(my+sy),SCALE*mw/Math.sqrt(sketching),SCALE*mh*Math.sqrt(sketching));
 	}else{
 		//save
 		ctx.save();
@@ -57,7 +58,7 @@ function coDrawImage(
 		ctx.translate(SCALE*(mx-sx),SCALE*(my+sy));
 
 		//zoom
-		ctx.scale(SCALE*-1/m_scale,SCALE*1/m_scale);
+		ctx.scale(SCALE*-1/(m_scale*Math.sqrt(sketching)),SCALE*Math.sqrt(sketching)/m_scale);
 
 		//draw
 		ctx.drawImage(pic,0,0);

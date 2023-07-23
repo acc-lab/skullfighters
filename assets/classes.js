@@ -380,7 +380,7 @@ class Arrow{
 }
 
 class Skull{
-	constructor(x, y, func, team, health, value){
+	constructor(x, y, func, team, health, value, spawn_animation){
 		this.x=x;
 		this.y=y;
 		this.cstFunc=func;
@@ -394,7 +394,9 @@ class Skull{
 		this.dying=false;
 		this.dying_effect=0;
 		this.dir=((t)=>{switch(t){case 1:return 1;case 2:return -1;}})(team);
-
+		this.spawn_animation=spawn_animation;
+		this.spawn_animation_done=false;
+		
 		this.attack_radius=0;
 		this.skipNeighborEnemies=false;
 
@@ -405,6 +407,10 @@ class Skull{
 		this.stun=false;
 	}
 	drawSelf(){
+		if(!this.spawn_animation_done){
+			this.spawn_animation_done=this.spawn_animation();
+			return;
+		}
 		coDrawImage(this.cst, this.team, this.x, this.y, this.dir, (this.effect>0), this.dying_effect, 2, this.rect);
 
 		if(this.effect==9){
@@ -417,6 +423,10 @@ class Skull{
 		}
 	}
 	static frameAction(skull, skulls){
+		if(!skull.instance.spawn_animation_done){
+			return 0;
+		}
+
 		// skull: objectInstance() of skull object w.r.t skulls source
 		// skull is NOT a instance object of skulls
 
@@ -527,10 +537,10 @@ function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=2
 	GameObjects.bullets.push(nbullet);
 }
 
-function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, value_=0){
+function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, value_=0, spawn_animation_=defaultSpawnAnimation()){
 	//func_: what the skull do every single screen refresh, that decides the skull's AI, movements, animations and attacks
 	//value_: only for Team 1. The property you can get as return if the skull's out of the screen and they survived
 
-	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_);
+	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_,spawn_animation_);
 	GameObjects.skulls.push(nskull);
 }
