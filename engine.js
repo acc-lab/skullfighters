@@ -6,7 +6,7 @@ var cv = document.getElementById("game-canvas");
 var SCALE = 3;
 
 /*debug*/
-var debugging=true;
+var debugging=false;
 
 cv.width = SCALE*900;
 cv.height = SCALE*400;
@@ -165,7 +165,7 @@ function loop(){
 }
 
 //set mainloop
-setInterval(loop, 10);
+setInterval(loop, 30);
 
 // setTimeout(function(){wave=4;timing=0; army=2100;}, 100);
 

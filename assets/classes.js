@@ -1,3 +1,7 @@
+function max(a, b){
+	return (a>b?a:b);
+}
+
 class Chop{
 	constructor(x, y, team, damage){
 		this.x=x;
@@ -16,8 +20,7 @@ class Chop{
 					//if collides, different team and the skull isn't dying yet
 
 					//damage
-					skull.effect=10;
-					skull.health-=this.damage;
+					skull.damage(this.damage, 10);
 					
 					return true;
 				}
@@ -37,6 +40,7 @@ class Chop{
 		if( castle_enemy.projectileCheck(chop) == -1 ) return -1;
 	}
 }
+
 class Bash{
 	static lifespan=20;
 	constructor(x,y,team){
@@ -44,7 +48,8 @@ class Bash{
 		this.y=y;
 		this.team=team;
 		this.existed_time=0;
-		this.vx=20;
+		this.damage=10;
+		this.vx=10;
 	}
 	get rect(){
 		return [this.x-(this.vx*(this.team==1?0:1)),this.y-15,this.vx/.9,30];
@@ -57,8 +62,7 @@ class Bash{
 					//if collides, different team and the skull isn't dying yet
 
 					//damage
-					skull.effect=80;
-					skull.health-=1;
+					skull.damage(this.damage, 80);
 					skull.x-=this.vx*skull.dir;
 					skull.stun=80;
 
@@ -78,8 +82,12 @@ class Bash{
 		}
 		var ibash=bash.instance;
 
-		//if touched, skull go backward
-		ibash.checkIfTouched(skulls);
+		//if touched, skull goes backward
+		if(ibash.checkIfTouched(skulls)){
+			bash.removeSelf();
+
+			return -1;
+		}
 
 		ibash.x+=ibash.vx*((ibash.team==1)?1:-1);
 		ibash.vx*=.8;
@@ -95,6 +103,7 @@ class Bash{
 	}
 
 }
+
 class HealBomb{
 	constructor(x, y, team, vx, vy, ax, ay, damage, healRange, health, expiringSpeed){
 		this.x=x;
@@ -193,6 +202,7 @@ class HealBomb{
 		return 0;
 	}
 }
+
 class Bullet{
 	constructor(x, y, team, vx, vy, ax, ay, damage){
 		this.x=x;
@@ -239,8 +249,7 @@ class Bullet{
 					//if they're from different team and the skull isn't already dying
 
 					//set damage and damage effect
-					skull.effect=10;
-					skull.health-=this.damage;
+					skull.damage(this.damage, 10);
 
 					return true;
 				}
@@ -335,8 +344,7 @@ class Arrow{
 					//if they're from different team and the skull isn't already dying
 
 					//set damage and damage effect
-					skull.effect=10;
-					skull.health-=this.damage;
+					skull.damage(this.damage, 10);
 
 					return true;
 				}
@@ -406,16 +414,17 @@ class Skull{
 
 		this.stun=false;
 	}
+	damage(dmg, effect_duration){
+		this.health -= dmg;
+		this.effect = max(this.effect, effect_duration);
+		this.health_bar_show = 30;
+	}
 	drawSelf(){
 		if(!this.spawn_animation_done){
 			this.spawn_animation_done=this.spawn_animation();
 			return;
 		}
 		coDrawImage(this.cst, this.team, this.x, this.y, this.dir, (this.effect>0), this.dying_effect, 2, this.rect);
-
-		if(this.effect==9){
-			this.health_bar_show=30;
-		}
 		
 		if(!this.dying && (this.health_bar_show>0)){
 			this.health_bar_show-=1;
