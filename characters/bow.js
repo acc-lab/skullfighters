@@ -20,7 +20,7 @@ function skeleton_bow_walking_func(reload=33, //the runtime delay between two sh
 	attack_radius = 20
 ){
 	//the function to generate
-	function skeleton_bow_walking(L,R,init=""){
+	function skeleton_bow_walking(L,R,init="",force_move=false){
 		if(init=="INIT"){
 			this.attack_radius = attack_radius;
 			this.skipNeighborEnemies = true;
@@ -84,10 +84,10 @@ function skeleton_bow_walking_func(reload=33, //the runtime delay between two sh
 		}
 
 		if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+11+reload+4){
-			if(this.team==1 && this.x+rapid_attack_radius+randomize(-rapid_attack_random_radius,rapid_attack_random_radius)>=R){
+			if(!force_move && this.team==1 && this.x+rapid_attack_radius+randomize(-rapid_attack_random_radius,rapid_attack_random_radius)>=R){
 				//if the enemy is too nearby, shoot again as soon as possible(for team 1)
 				this.tick=4*walking_cycle_time*walking_cycle_count+1;
-			}else if(this.team==2 && this.x-rapid_attack_radius-randomize(-rapid_attack_random_radius,rapid_attack_random_radius)<=L){
+			}else if(!force_move && this.team==2 && this.x-rapid_attack_radius-randomize(-rapid_attack_random_radius,rapid_attack_random_radius)<=L){
 				//for team 2
 				this.tick=4*walking_cycle_time*walking_cycle_count+1;
 			}else{

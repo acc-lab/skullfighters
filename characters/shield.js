@@ -5,7 +5,7 @@ function skeleton_shield_walking_func(
 	detect_radius = 85,
 	bash_cd = 66
 ){
-	func = function skeleton_shield_walking(L,R,init=""){
+	func = function skeleton_shield_walking(L,R,init="",force_move=false){
 		if(init=="INIT"){
 			this.attack_radius = 0;
 			this.skipNeighborEnemies = false;
@@ -49,13 +49,13 @@ function skeleton_shield_walking_func(
 		}
 		//back to initial animation frame
 		if(this.tick>=4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay){
-			if(this.team==1 && this.x+detect_radius>=R){
+			if(!force_move && this.team==1 && this.x+detect_radius>=R){
 				if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+bash_cd){
 					this.cst="shield1";
 					this.tick-=bash_cd;
 					new_bash(this.x,this.y-30,1);
 				}
-			}else if(this.team==2 && this.x-detect_radius<=L){
+			}else if(!force_move && this.team==2 && this.x-detect_radius<=L){
 				if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+bash_cd){
 					this.cst="shield1";
 					this.tick-=bash_cd;

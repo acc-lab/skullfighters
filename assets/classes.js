@@ -444,7 +444,11 @@ class Skull{
 
 			//run if the skull is not stunned
 			if(!skull.instance.stun){
-				skull.instance.cstFunc(leadings[0], leadings[1]);
+				let force_move = false;
+
+				if(skull.instance.x > castle_enemy.hitbox[0] && skull.instance.team != 1) force_move = true;
+
+				skull.instance.cstFunc(leadings[0], leadings[1], "", force_move);
 			}else{
 				skull.instance.stun--;
 			}
