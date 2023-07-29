@@ -3,7 +3,7 @@ function skeleton_shield_walking_func(
 	walking_cycle_count = 3,
 	full_walking_cycle_delay = 4,
 	detect_radius = 85,
-	bash_cd = 86
+	bash_cd = 66
 ){
 	func = function skeleton_shield_walking(L,R,init="",force_move=false){
 		if(init=="INIT"){
