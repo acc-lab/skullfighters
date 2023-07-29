@@ -14,7 +14,7 @@ var Library = new LibraryCls({
 			function(lead_l, lead_r){
 				let dist=Math.abs(this.x-(this.team==1?lead_r:lead_l)); //get distance
 		
-				if(dist>270){
+				if(dist>230){
 					//long shoot
 					new_arrow(this.x+16*this.dir, this.y-22, this.team, 11*this.dir, -3, 0.2*this.dir, 0.2, 30);
 				}else{

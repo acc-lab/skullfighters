@@ -55,6 +55,8 @@ class Bash{
 		return [this.x-(this.vx*(this.team==1?0:1)),this.y-15,this.vx/.9,30];
 	}
 	checkIfTouched(skulls){
+		let flag = false;
+
 		for(j=0;j<skulls.length;j++){
 			skull=skulls[j];
 			if(touched(skull.rect, this.rect)){
@@ -66,11 +68,11 @@ class Bash{
 					skull.x-=this.vx*skull.dir;
 					skull.stun=80;
 
-					return true;
+					flag = true;
 				}
 			}
 		}
-		return false;
+		return flag;
 	}
 	drawSelf(){
 		coDrawImage("bash",this.team,this.x,this.y,this.team==1?1:-1,0,0,3,this.rect)
@@ -239,6 +241,8 @@ class Bullet{
 		}
 	}
 	checkIfTouched(skulls){
+		let flag = false;
+
 		for(let j=0;j<skulls.length;j++){
 			skull=skulls[j];
 			//for each skull
@@ -250,12 +254,13 @@ class Bullet{
 
 					//set damage and damage effect
 					skull.damage(this.damage, 10);
-
-					return true;
+					
+					//remove until all dealt damage(splash damage)
+					flag = true;
 				}
 			}
 		}
-		return false;
+		return flag;
 	}
 	static frameAction(bullet, skulls){
 		if(Math.abs(bullet.instance.x-450)>=500 || Math.abs(bullet.instance.y-200)>=215){
