@@ -2,9 +2,10 @@
 var audio_to_be_registered=[
     ["cumShoot",".wav"],//parameter for passing into register audio function
     ["medBallExplosion",".wav"],
-    ["hit(ler)sound",".wav"],
+    ["hit(ler)2.0",".wav"],
     ["bashSoundo",".wav"],
-    ["idfcshootingstar",".wav"]
+    ["idfcshootingstar",".wav"],
+    ["arrowShoot2",".wav"],
 ];
 
 //registered sound

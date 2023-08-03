@@ -423,7 +423,7 @@ class Skull{
 		this.stun=false;
 	}
 	damage(dmg, effect_duration){
-		playAudio("hit(ler)sound");
+		playAudio("hit(ler)2.0");
 		this.health -= dmg;
 		this.effect = max(this.effect, effect_duration);
 		this.health_bar_show = 30;
