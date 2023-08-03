@@ -158,6 +158,9 @@ class HealBomb{
 
 		if(!healbomb.exploded){
 			healbomb.exploded=healbomb.checkIfTouched();
+			if(healbomb.exploded){
+				playAudio("medBallExplosion");
+			}
 		}
 
 		if(healbomb.exploded){
@@ -420,6 +423,7 @@ class Skull{
 		this.stun=false;
 	}
 	damage(dmg, effect_duration){
+		playAudio("hit(ler)sound");
 		this.health -= dmg;
 		this.effect = max(this.effect, effect_duration);
 		this.health_bar_show = 30;
