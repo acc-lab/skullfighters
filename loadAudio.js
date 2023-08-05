@@ -6,6 +6,7 @@ var audio_to_be_registered=[
     ["bashSoundo",".wav"],
     ["idfcshootingstar",".wav"],
     ["arrowShoot2",".wav"],
+    ["hehe",".flac"]
 ];
 
 //registered sound
@@ -26,10 +27,15 @@ var totalAudioPlayCount;
 //audio tick
 var audioTick=0;
 
+//bgm handler variables
+var currentbgmname="";
+var switchbgmname="hehe";
+var bgm=new Audio();
+
 
 function registerAudio(name,ext=".mp3",path="audio/"){
     var a=new Audio();
-    a.src=path+name+ext
+    a.src=path+name+ext;
     a.autoplay=true;
     a.load();
     a.addEventListener("canplaythrough",function(event){
@@ -51,11 +57,16 @@ function playAudio(name){
     return 1;
 }
 
+function changeBgm(name){
+    switchbgmname=name;
+}
+
 function loadAllaudio(){
     for(var i=0;i<audio_to_be_registered.length;i++){
-        registerAudio(...audio_to_be_registered[i])
+        registerAudio(...audio_to_be_registered[i]);
     }
 }
+
 
 loadAllaudio();
 
@@ -76,4 +87,28 @@ function checkIfAudioLoadedAndResetPlayCap(){
     }
 }
 
+function bgmHandler(){
+    console.log(bgm.duration,bgm.currentTime);
+    if(currentbgmname==""){
+        bgm.pause();
+    }
+    if(currentbgmname!=switchbgmname){
+        bgm.pause();
+        bgm=registeredAudio[switchbgmname].cloneNode(true);
+        currentbgmname=switchbgmname;
+        bgm.play();
+        console.log('a')
+    }
+    if(bgm.paused){
+        bgm.play()
+    }
+    if(bgm.duration<=bgm.currentTime+1){
+        //bgm.currentTime=0;
+        bgm=bgm.cloneNode(true);
+        bgm.play();
+    }
+}
+
 setInterval(checkIfAudioLoadedAndResetPlayCap,30)
+
+setInterval(bgmHandler,1)
