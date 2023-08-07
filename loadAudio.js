@@ -1,16 +1,16 @@
 //sound to load
 var audio_to_be_registered=[
-    ["cumShoot",".wav"],//parameter for passing into register audio function
-    ["medBallExplosion",".wav"],
-    ["hit(ler)sound",".wav"],
-    ["bashSoundo",".wav"],
-    ["idfcshootingstar",".wav"]
+    ["arrow_launch",".wav"],//parameter for passing into register audio function
+    ["med_explosion",".wav"],
+    ["shield_bash",".wav"],
+    ["gun_shoot",".wav"],
+    ["default_swing",".wav"],
 ];
 
 //registered sound
 var registeredAudio={};
 
-//I set these cap to make player not being deaf after playing this game
+//I set these cap to make player not deaf after playing this game
 const SAUDIOCAPPERRESET=3;
 const SAUDIOCAPRESETTICK=3;
 
@@ -35,7 +35,6 @@ function registerAudio(name,ext=".mp3",path="audio/"){
         registeredAudio[name]=this;
         audioPlayCount[name]=0;
     })
-    //console.log(a);
 }
 
 function playAudio(name){
@@ -43,7 +42,7 @@ function playAudio(name){
         return 0;
     }
     registeredAudio[name]
-    .cloneNode(true)//this create a new audio to let multiple same sound overlap each other
+    .cloneNode(true)//this creates a new audio to let multiple same sound overlap each other
     .play();
     audioPlayCount[name]++;
     totalAudioPlayCount++;

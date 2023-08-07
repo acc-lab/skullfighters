@@ -49,7 +49,7 @@ class Bash{
 		this.team=team;
 		this.existed_time=0;
 		this.damage=10;
-		this.vx=10;
+		this.vx=15;
 	}
 	get rect(){
 		return [this.x-(this.vx*(this.team==1?0:1)),this.y-15,this.vx/.9,30];
@@ -159,7 +159,7 @@ class HealBomb{
 		if(!healbomb.exploded){
 			healbomb.exploded=healbomb.checkIfTouched();
 			if(healbomb.exploded){
-				playAudio("medBallExplosion");
+				playAudio("med_explosion");
 			}
 		}
 
@@ -423,7 +423,6 @@ class Skull{
 		this.stun=false;
 	}
 	damage(dmg, effect_duration){
-		playAudio("hit(ler)sound");
 		this.health -= dmg;
 		this.effect = max(this.effect, effect_duration);
 		this.health_bar_show = 30;
