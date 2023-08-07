@@ -5,7 +5,6 @@ class GameObjectsCls{
 		this.bullets=[] //police-skull's shotgun bullet
 		this.chops=[] //axe-skull's chop
 		this.healbomb=[] //heal bomb
-		this.bashes=[]//shield bash
 	}
 }
 

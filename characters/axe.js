@@ -10,7 +10,6 @@ function skeleton_walking_func(
 		if(init=="INIT"){
 			this.attack_radius = 27;
 			this.skipNeighborEnemies = false;
-			this.cst = "idle";
 
 			return;
 		}

@@ -114,9 +114,6 @@ function loadAllImage(){
 
 	//icon of the "wave" text
 	img("wave_text", [-39.5,0], ".svg");
-
-	//bash attack
-	img("bash",[0,0])
 /*
 */
 }
@@ -132,7 +129,7 @@ var loaded=false;
 
 //function to check if all images are loaded
 function checkIfLoaded(){
-	if(Object.keys(store).length==54){
+	if(Object.keys(store).length==53){
 		loaded=true;
 	}
 }

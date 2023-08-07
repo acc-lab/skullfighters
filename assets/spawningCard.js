@@ -6,10 +6,6 @@ class SpawningCard{
 		this.sum_func = sum_func;
 	}
 	drawSelf(army, buff, spot_x, spot_y=5){
-		coDrawImage(this.icon_img, -1, spot_x, spot_y, 1, 0, (army<this.price)*80, 3);
-
-		drawFilledRect([spot_x-25,spot_y-(1-buff/this.max_buff)*51,51,51],"#2D2D2D")
-
 		coDrawImage(this.icon_img, -1, spot_x, spot_y, 1, 0, (army<this.price || buff>0)*70, 3);
 
 		printNumber('$'+this.price, spot_x, 62, 0.7, (army<this.price || buff>0)*70, 10, "center");

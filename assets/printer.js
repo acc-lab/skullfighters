@@ -8,7 +8,7 @@ function clearScreen(){
 //draw image
 function coDrawImage(
 		img, //image name to print
-		team, //team for skull printing. If it's not a skull(e.g. logo printing), set "team" with -1 (recommended)
+		team, //team for skull printing. If it's not a skull(e.g. logo printing), set "team" with -1 (recommanded)
 		x=0, //x coordinate. Without considering the "shift" property of each image, the function prints the image with (x,y) as left-up corner's coordinate
 		y=0, //y coordinate. For skull printing, we recommand 400 as default, and the "shift" property should do the rest job
 		dir=1, //direction: left=1, right=-1
@@ -16,7 +16,6 @@ function coDrawImage(
 		d_eff=0, //dying effect: use for skull dying fade-out effect
 		m_scale=2, //shrink the image by this specific scale. BIGGER=>image smaller
 		hitbox=null, //if hitbox=null, team must be -1(at least not 1 and 2)
-		sketching=1,// height:width,will keep the same area (sketching>0)
 	){
 	//get picture by name
 	pic=store[img];
@@ -50,7 +49,7 @@ function coDrawImage(
 	if(dir==1){
 		//draw image
 		//l.u. corner coordinate=>(mx+sx,my+sy), e.g.: sx=-20, sy=10 => (mx-20,my+10)
-		ctx.drawImage(pic,SCALE*(mx+sx),SCALE*(my+sy),SCALE*mw/Math.sqrt(sketching),SCALE*mh*Math.sqrt(sketching));
+		ctx.drawImage(pic,SCALE*(mx+sx),SCALE*(my+sy),SCALE*mw,SCALE*mh);
 	}else{
 		//save
 		ctx.save();
@@ -58,7 +57,7 @@ function coDrawImage(
 		ctx.translate(SCALE*(mx-sx),SCALE*(my+sy));
 
 		//zoom
-		ctx.scale(SCALE*-1/(m_scale*Math.sqrt(sketching)),SCALE*Math.sqrt(sketching)/m_scale);
+		ctx.scale(SCALE*-1/m_scale,SCALE*1/m_scale);
 
 		//draw
 		ctx.drawImage(pic,0,0);
@@ -71,9 +70,9 @@ function coDrawImage(
 	ctx.globalAlpha=1;
 
 	//debug mode only: print the hitbox of this skull(skip automatically if team is -1)
-	if(debugging && (hitbox != null)){
+	if(debugging && (team==1 || team==2)){
 		drawRect(hitbox, team);
-		if(team == 1 || team == 2) drawRect([x-0.5,y-0.5,1,1], team);
+		drawRect([x-0.5,y-0.5,1,1], team);
 	}
 }
 
@@ -81,7 +80,7 @@ function coDrawImage(
 function drawRect(args, team){
 	ctx.save();
 
-	ctx.lineWidth = 2;
+	ctx.lineWidth = 1;
 
 	ctx.beginPath();
 	//select color: team 1(your team)=>green; team 2(enemy)=>red
@@ -94,17 +93,6 @@ function drawRect(args, team){
 	ctx.rect(SCALE*args[0], SCALE*args[1], SCALE*args[2], SCALE*args[3]);
 	ctx.stroke();
 	
-	ctx.restore();
-}
-
-//draw filled rectangle
-function drawFilledRect(args,color){
-	ctx.save();
-	
-	ctx.fillStyle=color;
-
-	ctx.fillRect(SCALE*args[0],SCALE*args[1],SCALE*args[2],SCALE*args[3]);
-
 	ctx.restore();
 }
 
