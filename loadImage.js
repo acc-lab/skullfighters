@@ -116,7 +116,7 @@ function loadAllImage(){
 	img("wave_text", [-39.5,0], ".svg");
 
 	//bash attack
-	img("bash",[-20,-20])
+	img("bash",[0,0])
 /*
 */
 }

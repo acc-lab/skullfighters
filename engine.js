@@ -164,8 +164,48 @@ function loop(){
 	}
 }
 
+/*
+INVFRAMERATE = 2;
+
+var fframe = 0;
+
+function frame(){
+	fframe += 1;
+	fframe %= INVFRAMERATE;
+
+	if(fframe == 0)
+		loop();
+}
+
+document.addEventListener("keydown",(e)=>{
+	switch(e.keyCode){
+	case 90:
+		INVFRAMERATE=1;
+	  	break;
+	case 88:
+		INVFRAMERATE=2;
+	  	break;
+	case 67:
+		INVFRAMERATE=4;
+	  	break;
+	case 86:
+		INVFRAMERATE=500;
+	  	break;
+	case 65:
+		debugging=!debugging;
+		army=10000;
+	  	break;
+	case 66:
+		new_skull(x=900,y=400,func_=skeleton_shield_walking,2,1500);
+		break;
+	}
+  })
+
 //set mainloop
-setInterval(loop, 20);
+setInterval(frame, 15);
+*/
+
+setInterval(loop, 30);
 
 // setTimeout(function(){wave=4;timing=0; army=2100;}, 100);
 

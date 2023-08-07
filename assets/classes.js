@@ -42,16 +42,20 @@ class Chop{
 }
 
 class Bash{
-	static lifespan=20;
+	static lifespan=10;
 	constructor(x,y,team){
 		this.x=x;
 		this.y=y;
 		this.team=team;
 		this.existed_time=0;
 		this.vx=13;
+		this.damage=1;
 	}
 	get rect(){
-		return [this.x-(this.vx*(this.team==1?0:1)),this.y-15,this.vx/.9,30];
+		if(this.team==1)
+			return [this.x+12,this.y+4,this.vx,4];
+		else
+			return [this.x-this.vx-12,this.y+4,this.vx,4];
 	}
 	checkIfTouched(skulls){
 		let flag = false;
@@ -74,10 +78,10 @@ class Bash{
 		return false;
 	}
 	drawSelf(){
-		coDrawImage("bash",this.team,this.x,this.y,this.team==1?1:-1,0,0,3,this.rect)
+		coDrawImage("bash",this.team,this.x,this.y-8,this.team==1?1:-1,0,0,1,this.rect)
 	}
 	static frameAction(bash,skulls){
-		if(bash.instance.existed_time>Bash.lifespan){
+		if(bash.instance.existed_time>=Bash.lifespan){
 			bash.removeSelf()
 			return -1;
 		}
@@ -86,8 +90,12 @@ class Bash{
 		//if touched, skull goes backward
 		ibash.checkIfTouched(skulls)
 
+		if( castle.projectileCheck(bash) == -1 ) return -1;
+		if( castle_enemy.projectileCheck(bash) == -1 ) return -1;
+
 		ibash.x+=ibash.vx*((ibash.team==1)?1:-1);
 		ibash.vx*=.8;
+		ibash.vx = Math.floor(ibash.vx);
 		ibash.existed_time++;
 
 		ibash.drawSelf();

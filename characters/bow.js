@@ -24,6 +24,7 @@ function skeleton_bow_walking_func(reload=33, //the runtime delay between two sh
 		if(init=="INIT"){
 			this.attack_radius = attack_radius;
 			this.skipNeighborEnemies = true;
+			this.cst = "bow1";
 
 			return;
 		}

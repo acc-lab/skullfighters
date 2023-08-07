@@ -18,6 +18,7 @@ function skeleton_police_walking_func(reload=0, //the runtime delay between two 
 		if(init=="INIT"){
 			this.attack_radius = attack_radius;
 			this.skipNeighborEnemies = true;
+			this.cst = "police-idle";
 
 			return;
 		}

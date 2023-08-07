@@ -9,6 +9,7 @@ function skeleton_shield_walking_func(
 		if(init=="INIT"){
 			this.attack_radius = 0;
 			this.skipNeighborEnemies = false;
+			this.cst = "shield1";
 
 			return;
 		}
@@ -53,13 +54,13 @@ function skeleton_shield_walking_func(
 				if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+bash_cd){
 					this.cst="shield1";
 					this.tick-=bash_cd;
-					new_bash(this.x,this.y-30,1);
+					new_bash(this.x,this.y-28,1);
 				}
 			}else if(!force_move && this.team==2 && this.x-detect_radius<=L){
 				if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+bash_cd){
 					this.cst="shield1";
 					this.tick-=bash_cd;
-					new_bash(this.x,this.y-30,2);
+					new_bash(this.x,this.y-28,2);
 				}
 			}else{
 				this.tick=1;

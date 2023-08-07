@@ -15,6 +15,8 @@ function skeleton_healer_walking_func(reload=400,
         if(init=="INIT"){
             this.attack_radius=attack_radius;
             this.skipNeigborEnemies=true;
+			this.cst = "healer_idle";
+
             return;
         }
         //this.tick property records the animation cycle frame
