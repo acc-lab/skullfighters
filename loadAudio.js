@@ -27,7 +27,7 @@ var audioTick=0;
 
 //bgm handler variables
 var currentbgmname="";
-var switchbgmname="hehe";
+var switchbgmname="";
 var bgm=new Audio();
 
 
@@ -42,13 +42,18 @@ function registerAudio(name,ext=".mp3",path="audio/"){
     })
 }
 
-function playAudio(name){
+function playAudio(name,randomize=false){
     if(audioPlayCount[name]>=SAUDIOCAPPERRESET||totalAudioPlayCount>=TAUDIOCAPPERTICK){
         return 0;
     }
-    registeredAudio[name]
-    .cloneNode(true)//this creates a new audio to let multiple same sound overlap each other
-    .play();
+    if(randomize){
+        pitchShift(registeredAudio[name]
+        .cloneNode(true),randomize(-1000,1000)/1000)//this creates a new audio to let multiple same sound overlap each other
+        .play();
+    }else{
+        registeredAudio[name].cloneNode(true).play();
+    }
+
     audioPlayCount[name]++;
     totalAudioPlayCount++;
     return 1;
@@ -64,6 +69,11 @@ function loadAllaudio(){
     }
 }
 
+function pitchShift(audio,pitchShit){
+    audio.preservePitch=false;
+    audio.playbackRate=Math.exp(pitchShit);
+    return audio;
+}
 
 loadAllaudio();
 
@@ -85,7 +95,9 @@ function checkIfAudioLoadedAndResetPlayCap(){
 }
 
 function bgmHandler(){
-    console.log(bgm.duration,bgm.currentTime);
+    if(!bgm.duration){
+        return;
+    }
     if(currentbgmname==""){
         bgm.pause();
     }
@@ -94,7 +106,6 @@ function bgmHandler(){
         bgm=registeredAudio[switchbgmname].cloneNode(true);
         currentbgmname=switchbgmname;
         bgm.play();
-        console.log('a')
     }
     if(bgm.paused){
         bgm.play()
@@ -109,3 +120,4 @@ function bgmHandler(){
 setInterval(checkIfAudioLoadedAndResetPlayCap,30)
 
 setInterval(bgmHandler,1)
+ 
