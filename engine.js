@@ -33,6 +33,7 @@ var wave=1;
 
 //cards hotbar
 var spots_ID = ["chopper", "archer", "defender", "police", "healer"];
+//var spots_ID = ["police", "police", "police", "police", "police", ];
 
 //ID to Spot() object
 var spots = toSpots(spots_ID);
