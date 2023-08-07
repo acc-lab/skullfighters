@@ -161,6 +161,9 @@ class HealBomb{
 
 		if(!healbomb.exploded){
 			healbomb.exploded=healbomb.checkIfTouched();
+			if(healbomb.exploded){
+				playAudio("med_explosion");
+			}
 		}
 
 		if(healbomb.exploded){

@@ -80,6 +80,8 @@ function skeleton_bow_walking_func(reload=33, //the runtime delay between two sh
 			this.cst="bow1";
 			
 			//use custom shoot
+			playAudio("arrow_launch");
+
 			this.shoot_func=shoot_func;
 			this.shoot_func(L,R);
 		}

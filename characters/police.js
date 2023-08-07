@@ -68,6 +68,8 @@ function skeleton_police_walking_func(reload=0, //the runtime delay between two 
 			this.cst="police-idle";
 			
 			//use custom shoot
+			playAudio("gun_shoot")
+
 			this.shoot_func=shoot_func;
 			this.shoot_func(L,R);
 		}

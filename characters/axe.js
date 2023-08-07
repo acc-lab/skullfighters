@@ -78,6 +78,7 @@ function skeleton_walking_func(
 		if(4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+7<=this.tick && this.tick<=4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+10){
 			if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+7){
 				this.cst="chop1";
+				playAudio("default_swing");
 				if(dir==1)
 					new_chop(this.x+this.attack_radius,this.y-45,this.team, damage/3);
 				else

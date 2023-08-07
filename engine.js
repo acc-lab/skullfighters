@@ -40,7 +40,7 @@ var spots = toSpots(spots_ID);
 /*MAINLOOP*/
 function loop(){
 	//if the images are all loaded, and the game hasn't stop(DEATH) yet
-	if(loaded && !DEATH){
+	if(loaded && loadeda && !DEATH){
 		//generates enemy
 		timing+=1;
 

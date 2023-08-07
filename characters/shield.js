@@ -54,12 +54,14 @@ function skeleton_shield_walking_func(
 				if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+bash_cd){
 					this.cst="shield1";
 					this.tick-=bash_cd;
+					playAudio("shield_bash");
 					new_bash(this.x,this.y-28,1);
 				}
 			}else if(!force_move && this.team==2 && this.x-detect_radius<=L){
 				if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+bash_cd){
 					this.cst="shield1";
 					this.tick-=bash_cd;
+					playAudio("shield_bash");
 					new_bash(this.x,this.y-28,2);
 				}
 			}else{
