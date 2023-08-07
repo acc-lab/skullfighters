@@ -32,9 +32,9 @@ var Library = new LibraryCls({
 	"police": new SpawningCard("icon_of_police", 300, 350, function(){
 		new_skull(x=30, y=400, func_=skeleton_police_walking_func(150,
 			function(lead_l, lead_r){ //a shooting function parameter so you can make costumize shoots
-				new_bullet(this.x+25*this.dir, this.y-23, this.team, this.dir*25, 0, this.dir*0.2, 0.05, 400);
-				new_bullet(this.x+25*this.dir, this.y-22, this.team, this.dir*25, 0.3, this.dir*0.2, 0.05, 400);
-				new_bullet(this.x+25*this.dir, this.y-24, this.team, this.dir*25, -0.3, this.dir*0.2, 0.05, 400);
+				new_bullet(this.x+25*this.dir, this.y-23, this.team, this.dir*25, 0, this.dir*0.2, 0, 400);
+				new_bullet(this.x+25*this.dir, this.y-22, this.team, this.dir*25, 0.2, this.dir*0.2, 0, 400);
+				new_bullet(this.x+25*this.dir, this.y-24, this.team, this.dir*25, -0.2, this.dir*0.2, 0, 400);
 			}
 		), 1, 300, 300);
 	}),

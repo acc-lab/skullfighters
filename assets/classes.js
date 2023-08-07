@@ -212,7 +212,7 @@ class HealBomb{
 }
 
 class Bullet{
-	constructor(x, y, team, vx, vy, ax, ay, damage){
+	constructor(x, y, team, vx, vy, ax, ay, damage, piercing=1){
 		this.x=x;
 		this.y=y;
 		this.team=team;
@@ -221,6 +221,9 @@ class Bullet{
 		this.ax=ax;
 		this.ay=ay;
 		this.damage=damage;
+		this.piercing=piercing;
+
+		this.pierced = [];
 	}
 	update(){
 		this.x+=this.vx;
@@ -247,8 +250,6 @@ class Bullet{
 		}
 	}
 	checkIfTouched(skulls){
-		let flag = false;
-
 		for(let j=0;j<skulls.length;j++){
 			skull=skulls[j];
 			//for each skull
@@ -258,15 +259,18 @@ class Bullet{
 				if(skull.team!=this.team && !skull.dying){
 					//if they're from different team and the skull isn't already dying
 
-					//set damage and damage effect
-					skull.damage(this.damage, 10);
-					
-					//remove until all dealt damage(splash damage)
-					flag = true;
+					if(!this.pierced.includes(skull.uid)){
+						//set damage and damage effect
+						skull.damage(this.damage, 10);
+						this.pierced.push(skull.uid);
+						
+						return this.pierced.length == this.piercing+1;
+					}
 				}
 			}
 		}
-		return flag;
+
+		return false;
 	}
 	static frameAction(bullet, skulls){
 		if(Math.abs(bullet.instance.x-450)>=500 || Math.abs(bullet.instance.y-200)>=215){
@@ -399,7 +403,7 @@ class Arrow{
 }
 
 class Skull{
-	constructor(x, y, func, team, health, value, spawn_animation){
+	constructor(x, y, func, team, health, value, spawn_animation, uid){
 		this.x=x;
 		this.y=y;
 		this.cstFunc=func;
@@ -415,6 +419,8 @@ class Skull{
 		this.dir=((t)=>{switch(t){case 1:return 1;case 2:return -1;}})(team);
 		this.spawn_animation=spawn_animation;
 		this.spawn_animation_done=false;
+
+		this.uid = uid;
 		
 		this.attack_radius=0;
 		this.skipNeighborEnemies=false;
@@ -561,10 +567,14 @@ function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=2
 	GameObjects.bullets.push(nbullet);
 }
 
+var SKULL_UID = 0;
+
 function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, value_=0, spawn_animation_=defaultSpawnAnimation()){
 	//func_: what the skull do every single screen refresh, that decides the skull's AI, movements, animations and attacks
 	//value_: only for Team 1. The property you can get as return if the skull's out of the screen and they survived
 
-	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_,spawn_animation_);
+	SKULL_UID += 1;
+
+	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_,spawn_animation_, SKULL_UID);
 	GameObjects.skulls.push(nskull);
 }
