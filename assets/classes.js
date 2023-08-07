@@ -48,15 +48,14 @@ class Bash{
 		this.y=y;
 		this.team=team;
 		this.existed_time=0;
-		this.damage=10;
-		this.vx=10;
+		this.vx=13;
 	}
 	get rect(){
 		return [this.x-(this.vx*(this.team==1?0:1)),this.y-15,this.vx/.9,30];
 	}
 	checkIfTouched(skulls){
 		let flag = false;
-
+		
 		for(j=0;j<skulls.length;j++){
 			skull=skulls[j];
 			if(touched(skull.rect, this.rect)){
@@ -64,7 +63,7 @@ class Bash{
 					//if collides, different team and the skull isn't dying yet
 
 					//damage
-					skull.damage(this.damage, 80);
+					skull.damage(1, 80);
 					skull.x-=this.vx*skull.dir;
 					skull.stun=80;
 
@@ -72,7 +71,7 @@ class Bash{
 				}
 			}
 		}
-		return flag;
+		return false;
 	}
 	drawSelf(){
 		coDrawImage("bash",this.team,this.x,this.y,this.team==1?1:-1,0,0,3,this.rect)
@@ -85,11 +84,7 @@ class Bash{
 		var ibash=bash.instance;
 
 		//if touched, skull goes backward
-		if(ibash.checkIfTouched(skulls)){
-			bash.removeSelf();
-
-			return -1;
-		}
+		ibash.checkIfTouched(skulls)
 
 		ibash.x+=ibash.vx*((ibash.team==1)?1:-1);
 		ibash.vx*=.8;
