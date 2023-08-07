@@ -1,3 +1,7 @@
+function max(a, b){
+	return (a>b?a:b);
+}
+
 class Chop{
 	constructor(x, y, team, damage){
 		this.x=x;
@@ -16,8 +20,7 @@ class Chop{
 					//if collides, different team and the skull isn't dying yet
 
 					//damage
-					skull.effect=10;
-					skull.health-=this.damage;
+					skull.damage(this.damage, 10);
 					
 					return true;
 				}
@@ -33,17 +36,75 @@ class Chop{
 		
 		chop.instance.checkIfTouched(skulls)
 		
-		//check if the attack hitbox collides the castle hitbox
-		if(touched(castle.hitbox,chop.instance.rect)){
-			if(chop.instance.team!=1){
-				//axe attacks from the enemies' team that collides
-
-				//damage the castle
-				castle.damage(chop.instance.damage);
-			}
-		}
+		if( castle.projectileCheck(chop) == -1 ) return -1;
+		if( castle_enemy.projectileCheck(chop) == -1 ) return -1;
 	}
 }
+
+class Bash{
+	static lifespan=10;
+	constructor(x,y,team){
+		this.x=x;
+		this.y=y;
+		this.team=team;
+		this.existed_time=0;
+		this.vx=13;
+	}
+	get rect(){
+		if(this.team==1)
+			return [this.x+12,this.y+4,this.vx,4];
+		else
+			return [this.x-this.vx-12,this.y+4,this.vx,4];
+	}
+	checkIfTouched(skulls){
+		let flag = false;
+		
+		for(j=0;j<skulls.length;j++){
+			skull=skulls[j];
+			if(touched(skull.rect, this.rect)){
+				if(skull.team!=this.team && !skull.dying){
+					//if collides, different team and the skull isn't dying yet
+
+					//damage
+					skull.damage(1, 80);
+					skull.x-=this.vx*skull.dir;
+					skull.stun=80;
+
+					flag = true;
+				}
+			}
+		}
+		return false;
+	}
+	drawSelf(){
+		coDrawImage("bash",this.team,this.x,this.y-8,this.team==1?1:-1,0,0,1,this.rect)
+	}
+	static frameAction(bash,skulls){
+		if(bash.instance.existed_time>=Bash.lifespan){
+			bash.removeSelf()
+			return -1;
+		}
+		var ibash=bash.instance;
+
+		//if touched, skull goes backward
+		ibash.checkIfTouched(skulls)
+
+		ibash.x+=ibash.vx*((ibash.team==1)?1:-1);
+		ibash.vx*=.8;
+		ibash.vx = Math.floor(ibash.vx);
+		ibash.existed_time++;
+
+		ibash.drawSelf();
+		
+		if(debugging){
+			drawRect(ibash.rect,ibash.team);
+		}
+
+		return 0;
+	}
+
+}
+
 class HealBomb{
 	constructor(x, y, team, vx, vy, ax, ay, damage, healRange, health, expiringSpeed){
 		this.x=x;
@@ -142,6 +203,7 @@ class HealBomb{
 		return 0;
 	}
 }
+
 class Bullet{
 	constructor(x, y, team, vx, vy, ax, ay, damage){
 		this.x=x;
@@ -178,6 +240,8 @@ class Bullet{
 		}
 	}
 	checkIfTouched(skulls){
+		let flag = false;
+
 		for(let j=0;j<skulls.length;j++){
 			skull=skulls[j];
 			//for each skull
@@ -188,14 +252,14 @@ class Bullet{
 					//if they're from different team and the skull isn't already dying
 
 					//set damage and damage effect
-					skull.effect=10;
-					skull.health-=this.damage;
-
-					return true;
+					skull.damage(this.damage, 10);
+					
+					//remove until all dealt damage(splash damage)
+					flag = true;
 				}
 			}
 		}
-		return false;
+		return flag;
 	}
 	static frameAction(bullet, skulls){
 		if(Math.abs(bullet.instance.x-450)>=500 || Math.abs(bullet.instance.y-200)>=215){
@@ -210,16 +274,8 @@ class Bullet{
 			return -1;
 		}
 
-		if(touched(castle.hitbox,bullet.instance.rect)){
-			if(bullet.instance.team!=1){
-				//damage the castle
-				castle.damage(bullet.instance.damage);
-
-				bullet.removeSelf();
-
-				return -1;
-			}
-		}
+		if( castle.projectileCheck(bullet) == -1 ) return -1;
+		if( castle_enemy.projectileCheck(bullet) == -1 ) return -1;
 
 		//basic physic
 		bullet.instance.update();
@@ -292,8 +348,7 @@ class Arrow{
 					//if they're from different team and the skull isn't already dying
 
 					//set damage and damage effect
-					skull.effect=10;
-					skull.health-=this.damage;
+					skull.damage(this.damage, 10);
 
 					return true;
 				}
@@ -315,19 +370,8 @@ class Arrow{
 			return -1;
 		}
 
-		if(touched(castle.hitbox,arrow.instance.rect)){
-			//if the arrow touched the castle we're defending
-			if(arrow.instance.team!=1){
-				//if the arrow is from the enemies' team
-
-				//damage the castle
-				castle.damage(arrow.instance.damage);
-
-				arrow.removeSelf();
-				
-				return -1;
-			}
-		}
+		if( castle.projectileCheck(arrow) == -1 ) return -1;
+		if( castle_enemy.projectileCheck(arrow) == -1 ) return -1;
 
 		//basic physic
 		arrow.instance.update();
@@ -348,7 +392,7 @@ class Arrow{
 }
 
 class Skull{
-	constructor(x, y, func, team, health, value){
+	constructor(x, y, func, team, health, value, spawn_animation){
 		this.x=x;
 		this.y=y;
 		this.cstFunc=func;
@@ -362,20 +406,29 @@ class Skull{
 		this.dying=false;
 		this.dying_effect=0;
 		this.dir=((t)=>{switch(t){case 1:return 1;case 2:return -1;}})(team);
-
+		this.spawn_animation=spawn_animation;
+		this.spawn_animation_done=false;
+		
 		this.attack_radius=0;
 		this.skipNeighborEnemies=false;
 
 		this.cstFunc(null,null,"INIT"); //init
 		
 		this.health_bar_show=0;
+
+		this.stun=false;
+	}
+	damage(dmg, effect_duration){
+		this.health -= dmg;
+		this.effect = max(this.effect, effect_duration);
+		this.health_bar_show = 30;
 	}
 	drawSelf(){
-		coDrawImage(this.cst, this.team, this.x, this.y, this.dir, (this.effect>0), this.dying_effect, 2, this.rect);
-
-		if(this.effect==9){
-			this.health_bar_show=30;
+		if(!this.spawn_animation_done){
+			this.spawn_animation_done=this.spawn_animation();
+			return;
 		}
+		coDrawImage(this.cst, this.team, this.x, this.y, this.dir, (this.effect>0), this.dying_effect, 2, this.rect);
 		
 		if(!this.dying && (this.health_bar_show>0)){
 			this.health_bar_show-=1;
@@ -383,6 +436,10 @@ class Skull{
 		}
 	}
 	static frameAction(skull, skulls){
+		if(!skull.instance.spawn_animation_done){
+			return 0;
+		}
+
 		// skull: objectInstance() of skull object w.r.t skulls source
 		// skull is NOT a instance object of skulls
 
@@ -398,8 +455,16 @@ class Skull{
 
 			let leadings = getLeadings(skull.instance, skulls);
 
-			//run the skull's AI by this leadingL and leadingR
-			skull.instance.cstFunc(leadings[0], leadings[1]);
+			//run if the skull is not stunned
+			if(!skull.instance.stun){
+				let force_move = false;
+
+				if(skull.instance.x > castle_enemy.hitbox[0] && skull.instance.team != 1) force_move = true;
+
+				skull.instance.cstFunc(leadings[0], leadings[1], "", force_move);
+			}else{
+				skull.instance.stun--;
+			}
 
 		}else{
 			//set normal effect to 0, and make the dying fade-out effect increase
@@ -416,6 +481,7 @@ class Skull{
 			return -1;
 		}
 		
+		/*
 		//if the skull's from Team 1, and it surpassed the r.h.s screen edge
 		if(skull.instance.x>=915 && skull.instance.team==1 && !skull.instance.dying){
 			//increase the property by the skull's value
@@ -423,6 +489,7 @@ class Skull{
 
 			skull.instance.dying=true;
 		}
+		*/
 
 		return 0;
 	}
@@ -461,6 +528,11 @@ function new_chop(x_, y_, team_, damage_=10){
 	GameObjects.chops.push(nchop);
 }
 
+function new_bash(x_=0,y_=0,team_=1){
+	nbash = new Bash(x_,y_,team_);
+	GameObjects.bashes.push(nbash);
+}
+
 function new_arrow(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25){
 	//vx_,vy_: initial arrow's velocity
 	//ax_,ay_: arrow's acceleration (apparently you can have different acceleration for different bows)
@@ -482,10 +554,10 @@ function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=2
 	GameObjects.bullets.push(nbullet);
 }
 
-function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, value_=0){
+function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, value_=0, spawn_animation_=defaultSpawnAnimation()){
 	//func_: what the skull do every single screen refresh, that decides the skull's AI, movements, animations and attacks
 	//value_: only for Team 1. The property you can get as return if the skull's out of the screen and they survived
 
-	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_);
+	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_,spawn_animation_);
 	GameObjects.skulls.push(nskull);
 }
