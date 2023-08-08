@@ -76,6 +76,75 @@ function coDrawImage(
 		if(team == 1 || team == 2) drawRect([x-0.5,y-0.5,1,1], team);
 	}
 }
+//draw part of image
+function coDrawPartialImage(
+	img,// self explantory
+	x=0,//image x coord on screen
+	y=0,//image y coord on screen
+	scaloriginal=false,//partial image dependent on screen display or original image
+	cutx=0,//Partial image left top point at original image(if no shift set 0)
+	cuty=0,//Partial image left top point at original image(if no shift set 0)
+	cutw=0,//Partial image width(0 if no cut this axis)
+	cuth=0,//Partial image height(0 if no cut this axis)
+	anchor=false,//Anchor point of the image ()
+	dir=1,//flip or not => -1 or 1
+	opacity=1,//opacity
+	m_scale=2,//*shrink* image size by this value (tbh idk why it is this way)
+	sketching=1,//
+){
+	var pic=store[img];
+
+	var mx=x;
+	var my=y;
+
+	//get image shift
+	var sx=shift[img][0]*(1.5/m_scale);
+	var sy=shift[img][1]*(1.5/m_scale);
+
+	var cx=cutx;
+	var cy=cuty;
+	var cw=cutw;
+	var ch=cuth;
+
+	//if the image cut is from screen we scale parameter down
+	if(scaloriginal){
+		cx/=m_scale;
+		cy/=m_scale;
+		cw/=m_scale;
+		ch/=m_scale;
+	}
+	if(cw==0){
+		cw=pic.width/m_scale;
+	}
+	if(ch==0){
+		ch=pic.height/m_scale;
+	}
+
+	var mrms=m_scale/SCALE;
+	ctx.globalAlpha=opacity;
+
+	if(anchor){
+		mx+=Math.round(cx*SCALE*Math.sqrt(sketching))/SCALE;
+		my+=Math.round(cy*SCALE*Math.sqrt(sketching))/SCALE;
+	}
+
+	if(dir==1){
+		ctx.drawImage(pic,Math.round(cx*SCALE)*mrms,Math.round(cy*SCALE)*mrms,Math.round(cw*SCALE)*mrms,Math.round(ch*SCALE)*mrms,(SCALE*(mx+sx)),(SCALE*(my+sy)),Math.round(cw*SCALE/Math.sqrt(sketching)),Math.round(ch*SCALE*Math.sqrt(sketching)));
+	}else{
+		ctx.save();
+		
+		ctx.translate(SCALE*(mx-sx),SCALE*(my+sy));
+
+		ctx.scale(-1,1);
+
+		ctx.drawImage(pic,Math.round(cx*SCALE)*mrms,Math.round(cy*SCALE)*mrms,Math.round(cw*SCALE)*mrms,Math.round(ch*SCALE)*mrms,0,0,Math.round(cw*SCALE/Math.sqrt(sketching)),Math.round(ch*SCALE*Math.sqrt(sketching)));
+
+		ctx.restore();
+	}
+
+	ctx.globalAlpha=1;
+
+}
 
 //draw rectangle for hitbox
 function drawRect(args, team){
