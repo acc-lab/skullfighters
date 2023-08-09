@@ -110,7 +110,7 @@ function dsRotScalFadeDraw(
         this.crot+=rotspd;
         this.copac-=fadespd;
         this.cscal*=scalspd;
-        if(this.opacity<0){
+        if(this.copac<=0){
             this.expire=true;
         }
     }
