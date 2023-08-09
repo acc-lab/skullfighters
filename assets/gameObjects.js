@@ -6,6 +6,7 @@ class GameObjectsCls{
 		this.chops=[] //axe-skull's chop
 		this.healbomb=[] //heal bomb
 		this.bashes=[]//shield bash
+		this.particles=[];//this is particle ofcourse
 	}
 }
 

@@ -94,6 +94,12 @@ function loop(){
 			i+= Bash.frameAction(bash,GameObjects.skulls)
 		}
 
+		for(let i=0;i<GameObjects.particles.length;i++){
+			var particle= new ObjectInstance("particles",i);
+
+			i+= Particle.update(particle);
+		}
+
 		//set all chops to 0. Every chop only survive for 1 frame
 		//for continuous attack, the attacker will spawn a chop attack every frame
 		GameObjects.chops=[];

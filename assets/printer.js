@@ -136,6 +136,38 @@ function printNumber(number_txt, x, y, size, effect=0, width=10, align="left"){
 	}
 }
 
+function drawParticle(//image only shift to mid pt,no flip,no gay ass feature
+	img,
+	x,
+	y,
+	scale=0.5,//**DIRECT PROPORTION** (unlike some gay ass function wrote by gay ass
+	rot=0,//rotate (**degree**)
+	opacity=1,//0<=opacity<=1,1=opaque,0=transparent
+	sketch=1,//sketch>0
+){
+	var pic=store[img];
+
+	var mx=x*SCALE;
+	var my=y*SCALE;
+
+	var mw=pic.width*SCALE*scale/Math.sqrt(sketch);
+	var mh=pic.height*SCALE*scale*Math.sqrt(sketch);
+
+	ctx.globalAlpha=opacity;
+
+	ctx.save();
+
+	ctx.translate(mx+mw/2,my+mh/2);
+
+	ctx.rotate(rot/Math.PI*180);
+
+	ctx.drawImage(pic,-mw/2,-mh/2,mw,mh);
+
+	ctx.restore();
+
+	ctx.globalAlpha=1;
+}
+
 function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID", health_bar_show, max_health_bar_show){
 	var xm;//xmid and ymid of the "bars"
 	switch (align) {

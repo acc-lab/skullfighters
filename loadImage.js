@@ -117,6 +117,9 @@ function loadAllImage(){
 
 	//bash attack
 	img("bash",[0,0])
+
+	//partiles
+	img("healParticle",[2173804513208947890123794021398047980237489032179047128093785901237589427347589023478905423790578209375904237890527384859239840579432,1237452089743589234758902734098572309857342890759082437509872389045789043750982374509284750928])
 /*
 */
 }
@@ -132,7 +135,7 @@ var loaded=false;
 
 //function to check if all images are loaded
 function checkIfLoaded(){
-	if(Object.keys(store).length==54){
+	if(Object.keys(store).length==55){
 		loaded=true;
 	}
 }

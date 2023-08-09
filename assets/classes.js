@@ -167,6 +167,8 @@ class HealBomb{
 		}
 
 		if(healbomb.exploded){
+			if(healbomb.tickafterexplode%10==0)
+			new_particle("healParticle",randomize(-healbomb.radius,healbomb.radius)+healbomb.x,randomize(-healbomb.radius,0)+400,100,faMotionWithDeceleration(0,-10,0,1),dsRotScalFadeDraw(randomize(0,100),1,1,0,.05,.9,1));
 			healbomb.tickafterexplode++ ;
 
 			if(healbomb.tickafterexplode>500){
