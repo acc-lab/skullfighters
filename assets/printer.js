@@ -159,7 +159,7 @@ function drawParticle(//image only shift to mid pt,no flip,no gay ass feature
 
 	ctx.translate(mx,my);
 
-	ctx.rotate(rot/Math.PI*180);
+	ctx.rotate(rot/180*Math.PI);
 
 	ctx.drawImage(pic,-mw/2,-mh/2,mw,mh);
 
