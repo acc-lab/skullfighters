@@ -134,11 +134,11 @@ class HealBomb{
 		ctx.lineWidth=SCALE
 
 		if(this.tickafterexplode==0){
-			coDrawImage("heal-bomb", -1, this.x, this.y, 1, 0, 0, 4);
+			coDrawImage("heal_bomb", -1, this.x, this.y, 1, 0, 0, 4);
 
 		}else{
 			ctx.beginPath();
-			//console.log(this.tickafterexplode)
+			
 			ctx.fillStyle="#00FF00"+(Math.floor(32/100*(100-this.tickafterexplode))<16?"0":"")+(Math.floor(32/100*(100-this.tickafterexplode))).toString(16)
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
 			ctx.fill()

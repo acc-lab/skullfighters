@@ -16,7 +16,7 @@ function coDrawImage(
 		d_eff=0, //dying effect: use for skull dying fade-out effect
 		m_scale=2, //shrink the image by this specific scale. BIGGER=>image smaller
 		hitbox=null, //if hitbox=null, team must be -1(at least not 1 and 2)
-		sketching=1,// height:width,will keep the same area (sketching>0)
+		sketching=1,// height:width, will keep the same area (sketching>0)
 	){
 	//get picture by name
 	pic=store[img];
@@ -136,14 +136,14 @@ function printNumber(number_txt, x, y, size, effect=0, width=10, align="left"){
 	}
 }
 
-function drawParticle(//image only shift to mid pt,no flip,no gay ass feature
+function drawParticle( //image shift to mid point, no flip, no pp feature
 	img,
 	x,
 	y,
-	scale=0.5,//**DIRECT PROPORTION** (unlike some gay ass function wrote by gay ass
-	rot=0,//rotate (**degree**)
-	opacity=1,//0<=opacity<=1,1=opaque,0=transparent
-	sketch=1,//sketch>0
+	scale=0.5, //direct proportion!
+	rot=0, //rotate (degree)
+	opacity=1, //opacity: 0~1, 1=opaque, 0=transparent
+	sketch=1, //sketch>0
 ){
 	var pic=store[img];
 

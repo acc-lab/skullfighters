@@ -1,10 +1,10 @@
 class Particle{
-    constructor(img,x,y,expiretime=0,action=faLinearMotion(0,0),drawself=dsStaticDraw(1,1,1,0)){
+    constructor(img,x,y,expiretime=0,action=linearMotion(0,0),drawSelf=staticDraw(1,1,1,0)){
         this.img=img;
         this.x=x;
         this.y=y;
         this.frameAction=action;
-        this.drawSelf=drawself;
+        this.drawSelf=drawSelf;
         this.tick=0;
         this.expiretime=expiretime;
         this.expire=false;
@@ -29,8 +29,8 @@ class Particle{
     }
 }
 
-//particle FrameAction Template(with fa prefix
-function faLinearMotion(
+//for particle frameAction
+function linearMotion(
     vx=0,
     vy=0
 ){
@@ -41,7 +41,7 @@ function faLinearMotion(
     return frameAction;
 }
 
-function faMotionWithDeceleration(
+function motionWithAcceleration(
     vx=0,
     vy=0,
     ax=0,
@@ -60,8 +60,8 @@ function faMotionWithDeceleration(
     return frameAction;
 }
 
-//particle drawSelf Template(with ds prefix
-function dsStaticDraw(
+//for particle drawSelf
+function staticDraw(
     opacity=1,
     scale=.5,
     sketching=1,
@@ -74,7 +74,7 @@ function dsStaticDraw(
     return drawSelf;
 }
 
-function dsRotatingDraw(
+function rotatingDraw(
     initrot=0,
     rotspd=1,
     opacity=1,
@@ -91,13 +91,13 @@ function dsRotatingDraw(
     return drawSelf;
 }
 
-function dsRotScalFadeDraw(
+function rotatingScalingFadingDraw(
     irot=0,
     iopac=0,
     iscal=1,
-    rotspd=1,//additive
-    fadespd=.05,//additive
-    scalspd=1,//multiplicative
+    rotspd=1, //additive
+    fadespd=.05, //additive
+    scalspd=1, //multiplicative
     sketching=1,
 ){
     function drawSelf(){
@@ -119,7 +119,7 @@ function dsRotScalFadeDraw(
 
 
 //new particle
-function new_particle(_img,_x,_y,_expiretime=0,_action=faLinearMotion(0,0),_drawSelf=dsStaticDraw(1,1,1,0)){
+function new_particle(_img,_x,_y,_expiretime=0,_action=linearMotion(0,0),_drawSelf=staticDraw(1,1,1,0)){
     var nparticle=new Particle(_img,_x,_y,_expiretime,_action,_drawSelf);
 
     GameObjects.particles.push(nparticle);
