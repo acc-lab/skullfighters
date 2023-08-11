@@ -102,7 +102,7 @@ function loop(){
 		for(let i=0;i<GameObjects.particles.length;i++){
 			particle= new ObjectInstance("particles", i);
 
-			i += Particle.update(particle);
+			i += Particle.frameAction(particle);
 		}
 		//increase the property of player
 		if(timing<=maxTiming(wave))

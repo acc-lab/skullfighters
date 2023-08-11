@@ -170,7 +170,7 @@ class HealBomb{
 
 		if(healbomb.exploded){
 			if(healbomb.tickafterexplode%Math.ceil(50000/healbomb.radius/healbomb.radius)==0)
-			new_particle("healParticle",randomize(-healbomb.radius,healbomb.radius)+healbomb.x,randomize(-healbomb.radius,0)+400,100,faMotionWithDeceleration(0,-3,0,.2),dsRotScalFadeDraw(0,1,.5,randomize(-1000,1000)/1000,.05,.95,1));
+			new_particle("heal_particle",randomize(-healbomb.radius,healbomb.radius)+healbomb.x,randomize(-healbomb.radius,0)+400,100,PMot.am(0,-3,0,.2),PRot.l(0,randomize(-1000,1000)/1000),PScal.e(.5,.95),POpac.l(1,.05),PSket.cst(1));
 			
 			healbomb.tickafterexplode++ ;
 
