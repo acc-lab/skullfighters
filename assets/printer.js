@@ -16,7 +16,7 @@ function coDrawImage(
 		d_eff=0, //dying effect: use for skull dying fade-out effect
 		m_scale=2, //shrink the image by this specific scale. BIGGER=>image smaller
 		hitbox=null, //if hitbox=null, team must be -1(at least not 1 and 2)
-		sketching=1,// height:width, will keep the same area (sketching>0)
+		sketching=1,// height:width,will keep the same area (sketching>0)
 	){
 	//get picture by name
 	pic=store[img];
@@ -75,6 +75,75 @@ function coDrawImage(
 		drawRect(hitbox, team);
 		if(team == 1 || team == 2) drawRect([x-0.5,y-0.5,1,1], team);
 	}
+}
+//draw part of image
+function coDrawPartialImage(
+	img,// self explantory
+	x=0,//image x coord on screen
+	y=0,//image y coord on screen
+	scaloriginal=false,//partial image dependent on screen display or original image
+	cutx=0,//Partial image left top point at original image(if no shift set 0)
+	cuty=0,//Partial image left top point at original image(if no shift set 0)
+	cutw=0,//Partial image width(0 if no cut this axis)
+	cuth=0,//Partial image height(0 if no cut this axis)
+	anchor=false,//Anchor point of the image ()
+	dir=1,//flip or not => -1 or 1
+	opacity=1,//opacity
+	m_scale=2,//*shrink* image size by this value (tbh idk why it is this way)
+	sketching=1,//
+){
+	var pic=store[img];
+
+	var mx=x;
+	var my=y;
+
+	//get image shift
+	var sx=shift[img][0]*(1.5/m_scale);
+	var sy=shift[img][1]*(1.5/m_scale);
+
+	var cx=cutx;
+	var cy=cuty;
+	var cw=cutw;
+	var ch=cuth;
+
+	//if the image cut is from screen we scale parameter down
+	if(scaloriginal){
+		cx/=m_scale;
+		cy/=m_scale;
+		cw/=m_scale;
+		ch/=m_scale;
+	}
+	if(cw==0){
+		cw=pic.width/m_scale;
+	}
+	if(ch==0){
+		ch=pic.height/m_scale;
+	}
+
+	var mrms=m_scale/SCALE;
+	ctx.globalAlpha=opacity;
+
+	if(anchor){
+		mx+=Math.round(cx*SCALE*Math.sqrt(sketching))/SCALE;
+		my+=Math.round(cy*SCALE*Math.sqrt(sketching))/SCALE;
+	}
+
+	if(dir==1){
+		ctx.drawImage(pic,Math.round(cx*SCALE)*mrms,Math.round(cy*SCALE)*mrms,Math.round(cw*SCALE)*mrms,Math.round(ch*SCALE)*mrms,(SCALE*(mx+sx)),(SCALE*(my+sy)),Math.round(cw*SCALE/Math.sqrt(sketching)),Math.round(ch*SCALE*Math.sqrt(sketching)));
+	}else{
+		ctx.save();
+		
+		ctx.translate(SCALE*(mx-sx),SCALE*(my+sy));
+
+		ctx.scale(-1,1);
+
+		ctx.drawImage(pic,Math.round(cx*SCALE)*mrms,Math.round(cy*SCALE)*mrms,Math.round(cw*SCALE)*mrms,Math.round(ch*SCALE)*mrms,0,0,Math.round(cw*SCALE/Math.sqrt(sketching)),Math.round(ch*SCALE*Math.sqrt(sketching)));
+
+		ctx.restore();
+	}
+
+	ctx.globalAlpha=1;
+
 }
 
 //draw rectangle for hitbox
@@ -136,38 +205,6 @@ function printNumber(number_txt, x, y, size, effect=0, width=10, align="left"){
 	}
 }
 
-function drawParticle( //image shift to mid point, no flip, no pp feature
-	img,
-	x,
-	y,
-	scale=0.5, //direct proportion!
-	rot=0, //rotate (degree)
-	opacity=1, //opacity: 0~1, 1=opaque, 0=transparent
-	sketch=1, //sketch>0
-){
-	var pic=store[img];
-
-	var mx=x*SCALE;
-	var my=y*SCALE;
-
-	var mw=pic.width*SCALE*scale/Math.sqrt(sketch);
-	var mh=pic.height*SCALE*scale*Math.sqrt(sketch);
-
-	ctx.globalAlpha=opacity;
-
-	ctx.save();
-
-	ctx.translate(mx,my);
-
-	ctx.rotate(rot/180*Math.PI);
-
-	ctx.drawImage(pic,-mw/2,-mh/2,mw,mh);
-
-	ctx.restore();
-
-	ctx.globalAlpha=1;
-}
-
 function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID", health_bar_show, max_health_bar_show){
 	var xm;//xmid and ymid of the "bars"
 	switch (align) {
@@ -202,5 +239,4 @@ function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID", hea
     ctx.stroke();
 	
 	ctx.globalAlpha = 1;
-    
 }
