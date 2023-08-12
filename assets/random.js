@@ -3,8 +3,9 @@
 var rseed = 0;
 
 function randomize(min, max) {
-	rseed += 7;
-	rseed %= 100;
+	rseed *= 37019293;
+	rseed += 1;
+	rseed %= 39047149;
 
-	return Math.floor((rseed / 100) * (max - min + 1) ) + min;
+	return Math.floor((rseed / 39047149) * (max - min + 1) ) + min;
 }

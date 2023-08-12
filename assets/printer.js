@@ -239,5 +239,4 @@ function drawHealthBar(x, y, w, h, val, maxVal, color1, color2, align="MID", hea
     ctx.stroke();
 	
 	ctx.globalAlpha = 1;
-    
 }
