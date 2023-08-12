@@ -76,7 +76,7 @@ function loadAllImage(){
 	img("healer3_walk", [-17.5,-65]);
 	img("healer4_walk", [-17.5,-65]);
 	
-	img("heal-bomb", [-18,-18]);
+	img("heal_bomb", [-18,-18]);
 
 	//arrow for bow skull
 	img("arrow", [-12,-16]); //#
@@ -117,6 +117,9 @@ function loadAllImage(){
 
 	//bash attack
 	img("bash",[0,0])
+
+	//partiles
+	img("heal_particle",[0,0])
 /*
 */
 }
@@ -132,9 +135,10 @@ var loaded=false;
 
 //function to check if all images are loaded
 function checkIfLoaded(){
-	if(Object.keys(store).length==54){
+	if(Object.keys(store).length==55){
 		loaded=true;
 	}
 }
 //check if loaded(looped)
+
 setInterval(checkIfLoaded, 30);

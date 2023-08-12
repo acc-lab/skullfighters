@@ -33,7 +33,6 @@ var wave=1;
 
 //cards hotbar
 var spots_ID = ["chopper", "archer", "defender", "police", "healer"];
-//var spots_ID = ["police", "police", "police", "police", "police", ];
 
 //ID to Spot() object
 var spots = toSpots(spots_ID);
@@ -82,23 +81,29 @@ function loop(){
 
 			Chop.frameAction(chop, GameObjects.skulls);
 		}
-		
-		for(let i=0;i<GameObjects.healbomb.length;i++){
-			healbomb= new ObjectInstance("healbomb",i)
-
-			i += HealBomb.frameAction(healbomb,GameObjects.skulls)
-		}
-		
-		for(let i=0;i<GameObjects.bashes.length;i++){
-			bash= new ObjectInstance("bashes",i)
-
-			i+= Bash.frameAction(bash,GameObjects.skulls)
-		}
 
 		//set all chops to 0. Every chop only survive for 1 frame
 		//for continuous attack, the attacker will spawn a chop attack every frame
 		GameObjects.chops=[];
 
+		
+		for(let i=0;i<GameObjects.healbomb.length;i++){
+			healbomb= new ObjectInstance("healbomb", i)
+
+			i += HealBomb.frameAction(healbomb,GameObjects.skulls)
+		}
+		
+		for(let i=0;i<GameObjects.bashes.length;i++){
+			bash= new ObjectInstance("bashes", i)
+
+			i += Bash.frameAction(bash,GameObjects.skulls)
+		}
+
+		for(let i=0;i<GameObjects.particles.length;i++){
+			particle= new ObjectInstance("particles", i);
+
+			i += Particle.frameAction(particle);
+		}
 		//increase the property of player
 		if(timing<=maxTiming(wave))
 			army += generation_speed

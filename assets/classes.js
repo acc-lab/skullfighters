@@ -133,14 +133,16 @@ class HealBomb{
 	drawSelf(debug){
 		ctx.lineWidth=SCALE
 
-		ctx.beginPath();
 		if(this.tickafterexplode==0){
-			coDrawImage("heal-bomb", -1, this.x, this.y, 1, 0, 0, 4);
+			coDrawImage("heal_bomb", -1, this.x, this.y, 1, 0, 0, 4);
 
 		}else{
-			ctx.fillStyle="#00FF00"+(Math.floor(32*(this.health/this.maxHealth))<16?"0":"")+Math.floor(32*(this.health/this.maxHealth)).toString(16)
+			ctx.beginPath();
+			
+			ctx.fillStyle="#00FF00"+(Math.floor(32/100*(100-this.tickafterexplode))<16?"0":"")+(Math.floor(32/100*(100-this.tickafterexplode))).toString(16)
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
 			ctx.fill()
+			ctx.fillStyle="#00000000"
 		}
 
 	}
@@ -167,6 +169,9 @@ class HealBomb{
 		}
 
 		if(healbomb.exploded){
+			if(healbomb.tickafterexplode%Math.ceil(50000/healbomb.radius/healbomb.radius)==0)
+			new_particle("heal_particle",randomize(-healbomb.radius,healbomb.radius)+healbomb.x,randomize(-healbomb.radius,0)+400,100,PMot.am(0,-3,0,.2),PRot.l(0,randomize(-1000,1000)/1000),PScal.e(.5,.95),POpac.l(1,.05),PSket.cst(1));
+			
 			healbomb.tickafterexplode++ ;
 
 			if(healbomb.tickafterexplode>500){
