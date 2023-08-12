@@ -217,7 +217,7 @@ class HealBomb{
 }
 
 class Bullet{
-	constructor(x, y, team, vx, vy, ax, ay, damage, piercing=1){
+	constructor(x, y, team, vx, vy, ax, ay, drag_const, damage, piercing=1){
 		this.x=x;
 		this.y=y;
 		this.team=team;
@@ -226,6 +226,7 @@ class Bullet{
 		this.ax=ax;
 		this.ay=ay;
 		this.damage=damage;
+		this.drag_const=drag_const;
 		this.piercing=piercing;
 
 		this.pierced = [];
@@ -233,8 +234,14 @@ class Bullet{
 	update(){
 		this.x+=this.vx;
 		this.y+=this.vy;
-		this.vx+=this.ax;
-		this.vy+=this.ay;
+		
+		let spsq = this.vx*this.vx + this.vy*this.vy;
+		let sp = Math.sqrt(spsq);
+		
+		this.vx+=this.ax-this.vx * sp * this.drag_const;
+		this.vy+=this.ay-this.vy * sp * this.drag_const;
+
+		// F = -C \rho A v^2 v-dir = -const * v^2/v * (v_x, v_y)
 	}
 	drawSelf(debug){
 		ctx.save();
@@ -564,11 +571,11 @@ function new_healbomb(x_, y_, team_, vx_, vy_, ax_, ay_, heal_, healRange_, heal
 	GameObjects.healbomb.push(nhealbomb);
 }
 
-function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25){
+function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, drag_const_=0.01, damage_=25){
 	//vx_,vy_: initial bullet's velocity
 	//ax_,ay_: bullet's acceleration (apparently you can have different acceleration for different bullets)
 
-	nbullet=new Bullet(x_, y_, team_, vx_, vy_, ax_, ay_, damage_);
+	nbullet=new Bullet(x_, y_, team_, vx_, vy_, ax_, ay_, drag_const_, damage_);
 	GameObjects.bullets.push(nbullet);
 }
 
@@ -580,6 +587,6 @@ function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, v
 
 	SKULL_UID += 1;
 
-	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_,spawn_animation_, SKULL_UID);
+	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_, spawn_animation_, SKULL_UID);
 	GameObjects.skulls.push(nskull);
 }

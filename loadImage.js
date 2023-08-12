@@ -140,4 +140,5 @@ function checkIfLoaded(){
 	}
 }
 //check if loaded(looped)
+
 setInterval(checkIfLoaded, 30);
