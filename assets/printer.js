@@ -146,6 +146,38 @@ function coDrawPartialImage(
 
 }
 
+function drawParticle( //image shift to mid point, no flip
+	img,
+	x,
+	y,
+	scale=0.5, //direct proportion!
+	rot=0, //rotate (degree)
+	opacity=1, //opacity: 0~1, 1=opaque, 0=transparent
+	sketch=1, //sketch>0
+){
+	var pic=store[img];
+
+	var mx=x*SCALE;
+	var my=y*SCALE;
+
+	var mw=pic.width*SCALE*scale/Math.sqrt(sketch);
+	var mh=pic.height*SCALE*scale*Math.sqrt(sketch);
+
+	ctx.globalAlpha=opacity;
+
+	ctx.save();
+
+	ctx.translate(mx,my);
+
+	ctx.rotate(rot/180*Math.PI);
+
+	ctx.drawImage(pic,-mw/2,-mh/2,mw,mh);
+
+	ctx.restore();
+
+	ctx.globalAlpha=1;
+}
+
 //draw rectangle for hitbox
 function drawRect(args, team){
 	ctx.save();
